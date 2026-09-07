@@ -12,142 +12,173 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <!-- CSS -->
     <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="/css/carrinho.css" />
+    <link rel="stylesheet" href="../css/carrinho.css" />
 </head>
 <body>
 
-    <!-- ===== HEADER ===== -->
-    <header class="header" id="header">
-        <div class="container header-inner">
-            <!-- Logo com imagem -->
-            <a href="../index.html" class="logo">
-                <img 
-                    src="https://i.postimg.cc/HsynzXQj/Nike-(1).jpg" 
-                    alt="Nike Logo" 
-                    class="logo-img"
+    <!-- ============================================ -->
+    <!-- PRELOADER                                    -->
+    <!-- ============================================ -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <img
+                    src="https://i.postimg.cc/HsynzXQj/Nike-(1).jpg"
+                    alt="Nike Logo"
+                    class="preloader-logo-img"
                 />
-            </a>
+            </div>
+            <div class="preloader-swoosh">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="preloader-text">Carregando carrinho</p>
+        </div>
+    </div>
 
-            <!-- Navegação Desktop -->
-            <nav class="nav-desktop">
-                <a href="../index.html#products">Novidades</a>
-                <a href="../index.html#products">Masculino</a>
-                <a href="../index.html#products">Feminino</a>
-                <a href="../index.html#products">Infantil</a>
-                <a href="../index.html#products">Ofertas</a>
-            </nav>
+    <!-- ============================================ -->
+    <!-- CONTEÚDO PRINCIPAL                          -->
+    <!-- ============================================ -->
+    <div class="site-wrapper" id="siteWrapper">
 
-            <!-- Ações -->
-            <div class="header-actions">
-                <button class="icon-btn" aria-label="Buscar"><i class="fas fa-search"></i></button>
-                <button class="icon-btn" aria-label="Perfil"><i class="fas fa-user"></i></button>
-                <a href="carrinho.html" class="icon-btn cart-toggle" aria-label="Carrinho">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span class="cart-badge" id="cartBadge">0</span>
+        <!-- ===== HEADER ===== -->
+        <header class="header" id="header">
+            <div class="container header-inner">
+                <a href="../dashboard.html" class="logo">
+                    <img
+                        src="https://i.postimg.cc/8c6HT4YC/Nike.png"
+                        alt="Nike Logo"
+                        class="logo-img"
+                    />
                 </a>
-                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-        </div>
 
-        <!-- Navegação Mobile -->
-        <div class="nav-mobile" id="navMobile">
-            <a href="../index.html#products"><i class="fas fa-arrow-right"></i> Novidades</a>
-            <a href="../index.html#products"><i class="fas fa-arrow-right"></i> Masculino</a>
-            <a href="../index.html#products"><i class="fas fa-arrow-right"></i> Feminino</a>
-            <a href="../index.html#products"><i class="fas fa-arrow-right"></i> Infantil</a>
-            <a href="../index.html#products"><i class="fas fa-arrow-right"></i> Ofertas</a>
-            <a href="carrinho.html"><i class="fas fa-arrow-right"></i> Meu Carrinho</a>
-        </div>
-    </header>
+                <nav class="nav-desktop">
+                    <a href="../dashboard.html#carouselSection">Novidades</a>
+                    <a href="../dashboard.html#products">Masculino</a>
+                    <a href="../dashboard.html#products">Feminino</a>
+                    <a href="../dashboard.html#products">Infantil</a>
+                    <a href="../dashboard.html#products">Ofertas</a>
+                </nav>
 
-    <!-- ===== PÁGINA DO CARRINHO ===== -->
-    <section class="cart-page" id="cartPage">
-        <div class="container">
-            <div class="cart-page-header">
-                <h1><i class="fas fa-shopping-bag"></i> Meu Carrinho</h1>
-                <p class="cart-page-sub">Revise seus itens antes de finalizar a compra</p>
-            </div>
-
-            <div class="cart-page-content">
-                <!-- Lista de itens -->
-                <div class="cart-items-list" id="cartItemsList">
-                    <!-- Renderizado via JS -->
-                </div>
-
-                <!-- Resumo do pedido -->
-                <div class="cart-summary" id="cartSummary">
-                    <h3>Resumo do pedido</h3>
-                    <div class="summary-row">
-                        <span>Subtotal</span>
-                        <span id="summarySubtotal">R$ 0,00</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Frete</span>
-                        <span id="summaryShipping">Grátis</span>
-                    </div>
-                    <div class="summary-divider"></div>
-                    <div class="summary-row total">
-                        <span>Total</span>
-                        <span id="summaryTotal">R$ 0,00</span>
-                    </div>
-                    <button class="btn btn-primary btn-checkout" id="checkoutBtn">
-                        <i class="fas fa-credit-card"></i> Finalizar Compra
-                    </button>
-                    <a href="../index.html#products" class="btn btn-secondary btn-continue">
-                        <i class="fas fa-arrow-left"></i> Continuar comprando
+                <div class="header-actions">
+                    <button class="icon-btn" aria-label="Buscar"><i class="fas fa-search"></i></button>
+                    <a href="perfil.html" class="icon-btn" aria-label="Perfil"><i class="fas fa-user"></i></a>
+                    <a href="carrinho.html" class="icon-btn cart-toggle active-tool" aria-label="Carrinho">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-badge" id="cartBadge">0</span>
                     </a>
+                    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                        <span></span><span></span><span></span>
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h4>Produtos</h4>
-                    <a href="../index.html#products"><i class="fas fa-shoe-prints"></i> Tênis</a>
-                    <a href="../index.html#products"><i class="fas fa-tshirt"></i> Roupas</a>
-                    <a href="../index.html#products"><i class="fas fa-cog"></i> Acessórios</a>
-                    <a href="../index.html#products"><i class="fas fa-tags"></i> Ofertas</a>
+            <div class="nav-mobile" id="navMobile">
+                <a href="../dashboard.html#carouselSection"><i class="fas fa-arrow-right"></i> Novidades</a>
+                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Masculino</a>
+                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Feminino</a>
+                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Infantil</a>
+                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Ofertas</a>
+                <a href="perfil.html"><i class="fas fa-arrow-right"></i> Meu Perfil</a>
+                <a href="carrinho.html"><i class="fas fa-arrow-right"></i> Meu Carrinho</a>
+            </div>
+        </header>
+
+        <!-- ===== PÁGINA DO CARRINHO ===== -->
+        <section class="cart-page" id="cartPage">
+            <div class="container">
+                <div class="cart-page-header">
+                    <div class="breadcrumb">
+                        <a href="../dashboard.html">Início</a>
+                        <i class="fas fa-chevron-right"></i>
+                        <span class="current">Carrinho</span>
+                    </div>
+                    <h1><i class="fas fa-shopping-bag"></i> Meu Carrinho</h1>
+                    <p class="cart-page-sub">Revise seus itens antes de finalizar a compra</p>
                 </div>
-                <div>
-                    <h4>Atendimento</h4>
-                    <a href="#"><i class="fas fa-user"></i> Minha Conta</a>
-                    <a href="#"><i class="fas fa-box"></i> Pedidos</a>
-                    <a href="#"><i class="fas fa-undo"></i> Trocas</a>
-                    <a href="#"><i class="fas fa-headset"></i> Ajuda</a>
-                </div>
-                <div>
-                    <h4>Sobre</h4>
-                    <a href="#"><i class="fas fa-info-circle"></i> Sobre a Nike</a>
-                    <a href="#"><i class="fas fa-briefcase"></i> Carreiras</a>
-                    <a href="#"><i class="fas fa-newspaper"></i> Imprensa</a>
-                    <a href="#"><i class="fas fa-globe"></i> Sustentabilidade</a>
-                </div>
-                <div>
-                    <h4>Redes</h4>
-                    <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
-                    <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
-                    <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+
+                <div class="cart-page-content">
+                    <div class="cart-items-list" id="cartItemsList">
+                        <!-- Renderizado via JS -->
+                    </div>
+
+                    <div class="cart-summary" id="cartSummary">
+                        <h3>Resumo do pedido</h3>
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="summarySubtotal">R$ 0,00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Frete</span>
+                            <span id="summaryShipping">Grátis</span>
+                        </div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span id="summaryTotal">R$ 0,00</span>
+                        </div>
+                        <button class="btn btn-primary btn-checkout" id="checkoutBtn">
+                            <i class="fas fa-credit-card"></i> Finalizar Compra
+                        </button>
+                        <a href="../dashboard.html#products" class="btn btn-secondary btn-continue">
+                            <i class="fas fa-arrow-left"></i> Continuar comprando
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                &copy; 2026 Nike Studio — Design Premium. Todos os direitos reservados.
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div>
+                        <h4>Produtos</h4>
+                        <a href="../dashboard.html#products"><i class="fas fa-shoe-prints"></i> Tênis</a>
+                        <a href="../dashboard.html#products"><i class="fas fa-tshirt"></i> Roupas</a>
+                        <a href="../dashboard.html#products"><i class="fas fa-cog"></i> Acessórios</a>
+                        <a href="../dashboard.html#products"><i class="fas fa-tags"></i> Ofertas</a>
+                    </div>
+                    <div>
+                        <h4>Atendimento</h4>
+                        <a href="perfil.html"><i class="fas fa-user"></i> Minha Conta</a>
+                        <a href="perfil.html"><i class="fas fa-box"></i> Pedidos</a>
+                        <a href="perfil.html"><i class="fas fa-undo"></i> Trocas</a>
+                        <a href="#"><i class="fas fa-headset"></i> Ajuda</a>
+                    </div>
+                    <div>
+                        <h4>Sobre</h4>
+                        <a href="#"><i class="fas fa-info-circle"></i> Sobre a Nike</a>
+                        <a href="#"><i class="fas fa-briefcase"></i> Carreiras</a>
+                        <a href="#"><i class="fas fa-newspaper"></i> Imprensa</a>
+                        <a href="#"><i class="fas fa-globe"></i> Sustentabilidade</a>
+                    </div>
+                    <div>
+                        <h4>Redes</h4>
+                        <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+                        <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                        <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    &copy; 2026 Nike Studio — Design Premium. Todos os direitos reservados.
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 
-    <!-- ===== TOAST ===== -->
-    <div class="toast" id="cartToast"></div>
+        <!-- ===== TOAST ===== -->
+        <div class="toast" id="cartToast"></div>
 
-    <!-- ===== SCRIPTS ===== -->
+    </div> <!-- fim .site-wrapper -->
+
+    <!-- ============================================ -->
+    <!-- SCRIPTS                                      -->
+    <!-- ============================================ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="../js/search.js"></script>
     <script src="../js/script.js"></script>
     <script src="../js/carrinho.js"></script>
 </body>

@@ -22,11 +22,11 @@
     let toastTimer;
 
     function showToast(message, icon = 'fa-check-circle') {
-        let toast = document.getElementById('cartToast');
+        let toast = document.getElementById('globalToast');
         if (!toast) {
             toast = document.createElement('div');
             toast.className = 'toast';
-            toast.id = 'cartToast';
+            toast.id = 'globalToast';
             document.body.appendChild(toast);
         }
         toast.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
@@ -65,10 +65,7 @@
         const total = cart.reduce((sum, item) => sum + item.qty, 0);
         if (cartBadge) {
             cartBadge.textContent = total;
-            // Animação do badge via GSAP (se disponível)
-            if (typeof gsap !== 'undefined' && typeof window.animateCartBadge === 'function') {
-                window.animateCartBadge();
-            } else if (typeof gsap !== 'undefined') {
+            if (typeof gsap !== 'undefined') {
                 gsap.from(cartBadge, {
                     scale: 2,
                     duration: 0.4,
@@ -86,19 +83,21 @@
     // RENDERIZAR ITENS DO CARRINHO
     // ============================================
     function renderCartItems() {
+        if (!cartItemsList) return;
+
         if (cart.length === 0) {
             cartItemsList.innerHTML = `
                 <div class="cart-empty-state">
                     <i class="fas fa-shopping-bag"></i>
                     <h2>Seu carrinho está vazio</h2>
                     <p>Que tal dar uma olhada nos nossos produtos?</p>
-                    <a href="../index.html#products" class="btn btn-primary">
+                    <a href="../dashboard.html#products" class="btn btn-primary">
                         <i class="fas fa-arrow-left"></i> Voltar às compras
                     </a>
                 </div>
             `;
-            summarySubtotal.textContent = 'R$ 0,00';
-            summaryTotal.textContent = 'R$ 0,00';
+            if (summarySubtotal) summarySubtotal.textContent = 'R$ 0,00';
+            if (summaryTotal) summaryTotal.textContent = 'R$ 0,00';
             return;
         }
 
@@ -135,9 +134,6 @@
         cartItemsList.innerHTML = html;
         updateSummary();
 
-        // ===== EVENTOS DOS BOTÕES =====
-
-        // Incrementar quantidade
         document.querySelectorAll('.qty-inc').forEach(btn => {
             btn.addEventListener('click', function() {
                 const idx = parseInt(this.dataset.index);
@@ -145,7 +141,6 @@
                 saveCart();
                 renderCartItems();
                 updateBadge();
-
                 if (typeof gsap !== 'undefined') {
                     gsap.from(this.closest('.cart-item-card'), {
                         scale: 0.97,
@@ -156,7 +151,6 @@
             });
         });
 
-        // Decrementar quantidade
         document.querySelectorAll('.qty-dec').forEach(btn => {
             btn.addEventListener('click', function() {
                 const idx = parseInt(this.dataset.index);
@@ -168,7 +162,6 @@
                 saveCart();
                 renderCartItems();
                 updateBadge();
-
                 if (typeof gsap !== 'undefined') {
                     gsap.from(this.closest('.cart-item-card'), {
                         scale: 0.97,
@@ -179,7 +172,6 @@
             });
         });
 
-        // Remover item
         document.querySelectorAll('.cart-item-remove-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const idx = parseInt(this.dataset.index);
@@ -210,13 +202,10 @@
         });
     }
 
-    // ============================================
-    // ATUALIZAR RESUMO
-    // ============================================
     function updateSummary() {
         const total = getTotal();
-        summarySubtotal.textContent = formatPrice(total);
-        summaryTotal.textContent = formatPrice(total);
+        if (summarySubtotal) summarySubtotal.textContent = formatPrice(total);
+        if (summaryTotal) summaryTotal.textContent = formatPrice(total);
     }
 
     // ============================================
@@ -254,7 +243,7 @@
     }
 
     // ============================================
-    // ADICIONAR PRODUTOS (botões na página principal)
+    // ADICIONAR PRODUTOS
     // ============================================
     document.addEventListener('click', function(e) {
         const btn = e.target.closest('.btn-add-cart');
@@ -270,26 +259,16 @@
         const darkColor = card.dataset.dark || '#0a0a0a';
         const category = card.querySelector('.product-category')?.textContent || 'Tênis';
 
-        // Verifica se já existe no carrinho
         const existing = cart.find(item => item.id === id);
         if (existing) {
             existing.qty++;
         } else {
-            cart.push({
-                id,
-                name,
-                price,
-                qty: 1,
-                color,
-                darkColor,
-                category
-            });
+            cart.push({ id, name, price, qty: 1, color, darkColor, category });
         }
 
         saveCart();
         updateBadge();
 
-        // Feedback visual com GSAP
         if (typeof gsap !== 'undefined') {
             gsap.from(card, {
                 boxShadow: '0 0 0 3px #0a0a0a',
@@ -321,6 +300,17 @@
     renderCartItems();
     updateBadge();
 
-    console.log('✅ Página do carrinho carregada!');
+    if (typeof gsap !== 'undefined' && document.getElementById('cartSummary')) {
+        gsap.from('#cartItemsList, #cartSummary', {
+            opacity: 0,
+            y: 30,
+            duration: 0.7,
+            stagger: 0.1,
+            ease: 'power3.out',
+            delay: 0.1
+        });
+    }
+
+    console.log('✅ Carrinho carregado!');
 
 })();

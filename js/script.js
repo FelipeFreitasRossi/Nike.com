@@ -9,16 +9,82 @@
     }
 
     // ============================================
+    // PRELOADER SIMPLES (páginas internas: carrinho, perfil)
+    // Só atua quando existe .preloader-content (o preloader
+    // completo da tela de boas-vindas é controlado por welcome.js)
+    // ============================================
+    const simplePreloader = document.getElementById('preloader');
+    if (simplePreloader && simplePreloader.querySelector('.preloader-content')) {
+        const finishLoading = () => {
+            if (typeof gsap !== 'undefined') {
+                gsap.to(simplePreloader, {
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    delay: 0.3,
+                    onComplete: () => {
+                        simplePreloader.classList.add('hidden');
+                        document.body.style.overflow = '';
+                    }
+                });
+            } else {
+                simplePreloader.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        };
+        document.body.style.overflow = 'hidden';
+        if (document.readyState === 'complete') {
+            finishLoading();
+        } else {
+            window.addEventListener('load', finishLoading);
+        }
+        setTimeout(finishLoading, 2200);
+    }
+
+    // ============================================
+    // BARRA DE PROGRESSO DE SCROLL
+    // ============================================
+    let progressBarEl = document.querySelector('.scroll-progress');
+    if (!progressBarEl) {
+        progressBarEl = document.createElement('div');
+        progressBarEl.className = 'scroll-progress';
+        document.body.appendChild(progressBarEl);
+    }
+
+    function updateScrollProgress() {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBarEl.style.width = percent + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    updateScrollProgress();
+
+    // ============================================
+    // BOTÃO VOLTAR AO TOPO
+    // ============================================
+    let backToTopBtn = document.querySelector('.back-to-top');
+    if (!backToTopBtn) {
+        backToTopBtn = document.createElement('button');
+        backToTopBtn.className = 'back-to-top';
+        backToTopBtn.setAttribute('aria-label', 'Voltar ao topo');
+        backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        document.body.appendChild(backToTopBtn);
+    }
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    window.addEventListener('scroll', () => {
+        backToTopBtn.classList.toggle('visible', window.pageYOffset > 500);
+    }, { passive: true });
+
+    // ============================================
     // HEADER SCROLL EFFECT
     // ============================================
     const header = document.getElementById('header');
     if (header) {
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 20) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+            header.classList.toggle('scrolled', window.pageYOffset > 20);
         });
     }
 
@@ -48,9 +114,11 @@
     }
 
     // ============================================
-    // ANIMAÇÕES GSAP - HERO
+    // ANIMAÇÕES GSAP - DASHBOARD
     // ============================================
     if (typeof gsap !== 'undefined') {
+
+        // Hero - entrada
         gsap.from('.hero-text .tag', {
             opacity: 0,
             y: 30,
@@ -92,34 +160,69 @@
             ease: 'power3.out'
         });
 
-        // ============================================
-        // ANIMAÇÕES GSAP - PRODUTOS (ScrollTrigger)
-        // ============================================
-        const productCards = document.querySelectorAll('.product-card');
-        productCards.forEach((card, i) => {
-            gsap.from(card, {
-                opacity: 0,
+        // Paralaxe suave da imagem do hero ao rolar
+        const heroSection = document.querySelector('.hero');
+        const heroImageWrap = document.querySelector('.hero-image');
+        if (heroSection && heroImageWrap && typeof ScrollTrigger !== 'undefined') {
+            gsap.to(heroImageWrap, {
                 y: 60,
-                duration: 0.9,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: heroSection,
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+        }
+
+        // Título de seções - revelação com leve zoom
+        document.querySelectorAll('.section-header').forEach((el) => {
+            gsap.from(el.children, {
+                opacity: 0,
+                y: 36,
+                duration: 0.8,
+                stagger: 0.08,
                 ease: 'power3.out',
                 scrollTrigger: {
-                    trigger: card,
+                    trigger: el,
                     start: 'top 85%',
-                    toggleActions: 'play none none none'
-                },
-                delay: i * 0.1
+                    toggleActions: 'play none none reverse'
+                }
             });
         });
 
-        // ============================================
-        // ANIMAÇÕES GSAP - CARROSSEL
-        // ============================================
+        // Produtos (ScrollTrigger com stagger real por linha)
+        const productGrid = document.getElementById('productGrid');
+        if (productGrid) {
+            gsap.from(productGrid.children, {
+                opacity: 0,
+                y: 60,
+                scale: 0.96,
+                duration: 0.8,
+                stagger: 0.12,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: productGrid,
+                    start: 'top 82%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        }
+
+        // Carrossel
         const track = document.getElementById('carouselTrack');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
 
         if (track && prevBtn && nextBtn) {
-            const slidesData = [
+            const slidesData = (window.NIKE_PRODUCTS || []).slice(4).map(p => ({
+                name: p.name,
+                price: 'R$ ' + p.price.toFixed(2).replace('.', ',').replace(/,00$/, ''),
+                color: p.color
+            }));
+
+            const fallbackSlides = [
                 { name: 'Air Max Pulse', price: 'R$ 999', color: '#f5e6d3' },
                 { name: 'Dunk Low Retro', price: 'R$ 849', color: '#cfe1f0' },
                 { name: 'Vaporfly 3', price: 'R$ 1.499', color: '#f0e6d8' },
@@ -128,12 +231,14 @@
                 { name: 'Air Max 90', price: 'R$ 729', color: '#d4e0e8' }
             ];
 
+            const finalSlides = slidesData.length ? slidesData : fallbackSlides;
+
             let currentIndex = 0;
             let slidesPerView = 3;
 
             function renderSlides() {
                 track.innerHTML = '';
-                slidesData.forEach((item) => {
+                finalSlides.forEach((item) => {
                     const slide = document.createElement('div');
                     slide.className = 'carousel-slide';
                     slide.innerHTML = `
@@ -165,7 +270,7 @@
 
             function moveCarousel(instant = false) {
                 const slideWidth = getSlideWidth();
-                const maxIndex = Math.max(0, slidesData.length - slidesPerView);
+                const maxIndex = Math.max(0, finalSlides.length - slidesPerView);
                 if (currentIndex > maxIndex) currentIndex = maxIndex;
                 const offset = currentIndex * (slideWidth + 24);
 
@@ -181,7 +286,7 @@
             }
 
             function nextSlide() {
-                const maxIndex = Math.max(0, slidesData.length - slidesPerView);
+                const maxIndex = Math.max(0, finalSlides.length - slidesPerView);
                 if (currentIndex < maxIndex) {
                     currentIndex++;
                 } else {
@@ -191,7 +296,7 @@
             }
 
             function prevSlide() {
-                const maxIndex = Math.max(0, slidesData.length - slidesPerView);
+                const maxIndex = Math.max(0, finalSlides.length - slidesPerView);
                 if (currentIndex > 0) {
                     currentIndex--;
                 } else {
@@ -228,11 +333,19 @@
                     toggleActions: 'play none none none'
                 }
             });
+
+            // Auto-play discreto do carrossel
+            let autoplayTimer = setInterval(nextSlide, 5000);
+            const carouselSection = document.getElementById('carouselSection');
+            if (carouselSection) {
+                carouselSection.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+                carouselSection.addEventListener('mouseleave', () => {
+                    autoplayTimer = setInterval(nextSlide, 5000);
+                });
+            }
         }
 
-        // ============================================
-        // ANIMAÇÕES GSAP - SEÇÃO "SOBRE"
-        // ============================================
+        // Sobre
         const aboutCards = document.querySelectorAll('.about-card');
         aboutCards.forEach((card, i) => {
             gsap.from(card, {
@@ -249,9 +362,24 @@
             });
         });
 
-        // ============================================
-        // ANIMAÇÃO DO FOOTER
-        // ============================================
+        // Newsletter (se existir na página)
+        const newsletter = document.querySelector('.newsletter-inner');
+        if (newsletter) {
+            gsap.from(newsletter.children, {
+                opacity: 0,
+                y: 30,
+                duration: 0.9,
+                stagger: 0.1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: newsletter,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        }
+
+        // Footer
         const footer = document.querySelector('.footer');
         if (footer) {
             gsap.from(footer, {
@@ -267,9 +395,7 @@
             });
         }
 
-        // ============================================
-        // ANIMAÇÃO CONTÍNUA DO HERO (SVG flutuante)
-        // ============================================
+        // SVG flutuante
         const heroImage = document.querySelector('.hero-image svg');
         if (heroImage) {
             gsap.to(heroImage, {
@@ -281,9 +407,55 @@
             });
         }
 
-        console.log('✅ GSAP animações carregadas com sucesso!');
-    } else {
-        console.warn('⚠️ GSAP não encontrado. Animações não estarão disponíveis.');
+        // Revelação genérica para qualquer elemento com .reveal-up
+        document.querySelectorAll('.reveal-up').forEach((el) => {
+            gsap.to(el, {
+                opacity: 1,
+                y: 0,
+                duration: 0.9,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            });
+        });
+
+        // Revelação da hero de páginas internas (carrinho, perfil)
+        const pageHero = document.querySelector('.page-hero');
+        if (pageHero) {
+            gsap.from(pageHero.children[0].children, {
+                opacity: 0,
+                y: 24,
+                duration: 0.7,
+                stagger: 0.1,
+                ease: 'power3.out'
+            });
+        }
+
+        console.log('✅ GSAP animações carregadas!');
+    }
+
+    // ============================================
+    // NEWSLETTER
+    // ============================================
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = this.querySelector('input');
+            if (typeof gsap !== 'undefined') {
+                gsap.fromTo(this.querySelector('.btn'), { scale: 1 }, { scale: 1.1, duration: 0.15, yoyo: true, repeat: 1 });
+            }
+            const toast = document.getElementById('globalToast');
+            if (toast) {
+                toast.innerHTML = `<i class="fas fa-check-circle"></i> Inscrição confirmada! Fique de olho no seu e-mail.`;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 3000);
+            }
+            input.value = '';
+        });
     }
 
 })();

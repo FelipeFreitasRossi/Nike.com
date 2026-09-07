@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meu Perfil - Nike Studio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/perfil.css" />
+</head>
+<body>
+
+    <!-- ============================================ -->
+    <!-- PRELOADER                                    -->
+    <!-- ============================================ -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <img
+                    src="https://i.postimg.cc/HsynzXQj/Nike-(1).jpg"
+                    alt="Nike Logo"
+                    class="preloader-logo-img"
+                />
+            </div>
+            <div class="preloader-swoosh">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="preloader-text">Carregando perfil</p>
+        </div>
+    </div>
+
+    <div class="site-wrapper" id="siteWrapper">
+
+        <!-- ===== HEADER ===== -->
+        <header class="header" id="header">
+            <div class="container header-inner">
+                <a href="../dashboard.html" class="logo">
+                    <img
+                        src="https://i.postimg.cc/8c6HT4YC/Nike.png"
+                        alt="Nike Logo"
+                        class="logo-img"
+                    />
+                </a>
+
+                <nav class="nav-desktop">
+                    <a href="../dashboard.html#carouselSection">Novidades</a>
+                    <a href="../dashboard.html#products">Masculino</a>
+                    <a href="../dashboard.html#products">Feminino</a>
+                    <a href="../dashboard.html#products">Infantil</a>
+                    <a href="../dashboard.html#products">Ofertas</a>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="icon-btn" aria-label="Buscar"><i class="fas fa-search"></i></button>
+                    <a href="perfil.html" class="icon-btn active-tool" aria-label="Perfil"><i class="fas fa-user"></i></a>
+                    <a href="carrinho.html" class="icon-btn cart-toggle" aria-label="Carrinho">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="nav-mobile" id="navMobile">
+                <a href="../dashboard.html#carouselSection"><i class="fas fa-arrow-right"></i> Novidades</a>
+                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Masculino</a>
+                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Feminino</a>
+                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Infantil</a>
+                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Ofertas</a>
+                <a href="perfil.html"><i class="fas fa-arrow-right"></i> Meu Perfil</a>
+                <a href="carrinho.html"><i class="fas fa-arrow-right"></i> Meu Carrinho</a>
+            </div>
+        </header>
+
+        <!-- ===== BANNER DA PÁGINA ===== -->
+        <section class="page-hero">
+            <div class="container">
+                <div class="breadcrumb" style="justify-content: flex-start;">
+                    <a href="../dashboard.html">Início</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span class="current">Meu Perfil</span>
+                </div>
+                <h1 style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.5px;">Minha Conta</h1>
+                <p class="section-sub">Gerencie seus dados, pedidos e preferências</p>
+            </div>
+        </section>
+
+        <!-- ===== PÁGINA DE PERFIL ===== -->
+        <section class="profile-page">
+            <div class="container">
+                <div class="profile-layout">
+
+                    <!-- CARD LATERAL -->
+                    <aside class="profile-card">
+                        <div class="profile-avatar-wrapper">
+                            <div class="profile-avatar" id="profileAvatar">MC</div>
+                            <button class="profile-avatar-edit" id="avatarEditBtn" aria-label="Editar foto">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                        </div>
+                        <h2>Maria Clara</h2>
+                        <p class="profile-email">maria.clara@email.com</p>
+                        <span class="profile-member-tag"><i class="fas fa-crown"></i> Membro Nike Studio</span>
+
+                        <div class="profile-stats">
+                            <div>
+                                <strong>12</strong>
+                                <span>Pedidos</span>
+                            </div>
+                            <div>
+                                <strong>4</strong>
+                                <span>Favoritos</span>
+                            </div>
+                            <div>
+                                <strong>2</strong>
+                                <span>Endereços</span>
+                            </div>
+                        </div>
+
+                        <nav class="profile-nav" id="profileNav">
+                            <button class="active" data-panel="dados"><i class="fas fa-user"></i> Meus Dados</button>
+                            <button data-panel="pedidos"><i class="fas fa-box"></i> Meus Pedidos</button>
+                            <button data-panel="enderecos"><i class="fas fa-map-marker-alt"></i> Endereços</button>
+                            <button data-panel="preferencias"><i class="fas fa-sliders-h"></i> Preferências</button>
+                            <button class="danger" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair da conta</button>
+                        </nav>
+                    </aside>
+
+                    <!-- CONTEÚDO -->
+                    <div class="profile-content">
+
+                        <!-- MEUS DADOS -->
+                        <div class="profile-panel active" data-panel="dados">
+                            <div class="profile-panel-header">
+                                <div>
+                                    <h3>Meus Dados</h3>
+                                    <p>Mantenha suas informações pessoais atualizadas</p>
+                                </div>
+                            </div>
+                            <form id="profileForm">
+                                <div class="profile-form-grid">
+                                    <div class="form-group">
+                                        <label for="nomeInput">Nome completo</label>
+                                        <input type="text" id="nomeInput" value="Maria Clara Andrade" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emailInput">E-mail</label>
+                                        <input type="email" id="emailInput" value="maria.clara@email.com" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="telInput">Telefone</label>
+                                        <input type="tel" id="telInput" value="(16) 99123-4567" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nascInput">Data de nascimento</label>
+                                        <input type="date" id="nascInput" value="1998-04-12" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="generoInput">Gênero</label>
+                                        <select id="generoInput">
+                                            <option>Feminino</option>
+                                            <option>Masculino</option>
+                                            <option>Prefiro não informar</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tamanhoInput">Tamanho de calçado preferido</label>
+                                        <select id="tamanhoInput">
+                                            <option>36</option>
+                                            <option>37</option>
+                                            <option selected>38</option>
+                                            <option>39</option>
+                                            <option>40</option>
+                                            <option>41</option>
+                                            <option>42</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="profile-form-actions">
+                                    <button type="submit" class="btn-save"><i class="fas fa-check"></i> Salvar alterações</button>
+                                    <button type="reset" class="btn-cancel">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- MEUS PEDIDOS -->
+                        <div class="profile-panel" data-panel="pedidos">
+                            <div class="profile-panel-header">
+                                <div>
+                                    <h3>Meus Pedidos</h3>
+                                    <p>Acompanhe o status das suas compras recentes</p>
+                                </div>
+                            </div>
+                            <div id="ordersList">
+                                <div class="order-item">
+                                    <div class="order-item-thumb">
+                                        <svg viewBox="0 0 120 80" fill="none">
+                                            <rect x="10" y="10" width="100" height="60" rx="10" fill="#e8e8e8" />
+                                            <circle cx="60" cy="40" r="22" fill="#0a0a0a" />
+                                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                                        </svg>
+                                    </div>
+                                    <div class="order-item-info">
+                                        <h4>Air Max 270</h4>
+                                        <span>Pedido #48213 — 28 ago 2026</span>
+                                    </div>
+                                    <span class="order-status delivered">Entregue</span>
+                                    <div class="order-item-price">R$ 899,00</div>
+                                </div>
+                                <div class="order-item">
+                                    <div class="order-item-thumb">
+                                        <svg viewBox="0 0 120 80" fill="none">
+                                            <rect x="10" y="10" width="100" height="60" rx="10" fill="#f0e6d8" />
+                                            <circle cx="60" cy="40" r="22" fill="#b08968" />
+                                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                                        </svg>
+                                    </div>
+                                    <div class="order-item-info">
+                                        <h4>ZoomX Vaporfly</h4>
+                                        <span>Pedido #48590 — 02 set 2026</span>
+                                    </div>
+                                    <span class="order-status transit">A caminho</span>
+                                    <div class="order-item-price">R$ 1.299,00</div>
+                                </div>
+                                <div class="order-item">
+                                    <div class="order-item-thumb">
+                                        <svg viewBox="0 0 120 80" fill="none">
+                                            <rect x="10" y="10" width="100" height="60" rx="10" fill="#cfe1f0" />
+                                            <circle cx="60" cy="40" r="22" fill="#2a6f97" />
+                                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                                        </svg>
+                                    </div>
+                                    <div class="order-item-info">
+                                        <h4>Court Legacy</h4>
+                                        <span>Pedido #48601 — 05 set 2026</span>
+                                    </div>
+                                    <span class="order-status processing">Em separação</span>
+                                    <div class="order-item-price">R$ 499,00</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ENDEREÇOS -->
+                        <div class="profile-panel" data-panel="enderecos">
+                            <div class="profile-panel-header">
+                                <div>
+                                    <h3>Endereços</h3>
+                                    <p>Escolha onde suas encomendas devem chegar</p>
+                                </div>
+                                <button class="btn-save" id="addAddressBtn"><i class="fas fa-plus"></i> Novo endereço</button>
+                            </div>
+                            <div class="address-card default">
+                                <span class="address-card-tag">Padrão</span>
+                                <h4>Casa</h4>
+                                <p>Rua das Palmeiras, 245 — Jardim América<br />São Carlos, SP — CEP 13560-000</p>
+                            </div>
+                            <div class="address-card">
+                                <h4>Trabalho</h4>
+                                <p>Av. São Carlos, 1500 — Centro<br />São Carlos, SP — CEP 13560-901</p>
+                            </div>
+                        </div>
+
+                        <!-- PREFERÊNCIAS -->
+                        <div class="profile-panel" data-panel="preferencias">
+                            <div class="profile-panel-header">
+                                <div>
+                                    <h3>Preferências</h3>
+                                    <p>Personalize sua experiência na Nike Studio</p>
+                                </div>
+                            </div>
+                            <div class="pref-row">
+                                <div>
+                                    <h4>Notificações de promoções</h4>
+                                    <p>Receba alertas de descontos e lançamentos</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked />
+                                    <span class="switch-slider"></span>
+                                </label>
+                            </div>
+                            <div class="pref-row">
+                                <div>
+                                    <h4>Atualizações de pedido por e-mail</h4>
+                                    <p>Acompanhe o status das suas compras</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked />
+                                    <span class="switch-slider"></span>
+                                </label>
+                            </div>
+                            <div class="pref-row">
+                                <div>
+                                    <h4>Recomendações personalizadas</h4>
+                                    <p>Sugestões de produtos com base no seu histórico</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" />
+                                    <span class="switch-slider"></span>
+                                </label>
+                            </div>
+                            <div class="pref-row">
+                                <div>
+                                    <h4>Modo escuro</h4>
+                                    <p>Em breve disponível para todo o site</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" disabled />
+                                    <span class="switch-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div>
+                        <h4>Produtos</h4>
+                        <a href="../dashboard.html#products"><i class="fas fa-shoe-prints"></i> Tênis</a>
+                        <a href="../dashboard.html#products"><i class="fas fa-tshirt"></i> Roupas</a>
+                        <a href="../dashboard.html#products"><i class="fas fa-cog"></i> Acessórios</a>
+                        <a href="../dashboard.html#products"><i class="fas fa-tags"></i> Ofertas</a>
+                    </div>
+                    <div>
+                        <h4>Atendimento</h4>
+                        <a href="perfil.html"><i class="fas fa-user"></i> Minha Conta</a>
+                        <a href="perfil.html"><i class="fas fa-box"></i> Pedidos</a>
+                        <a href="perfil.html"><i class="fas fa-undo"></i> Trocas</a>
+                        <a href="#"><i class="fas fa-headset"></i> Ajuda</a>
+                    </div>
+                    <div>
+                        <h4>Sobre</h4>
+                        <a href="#"><i class="fas fa-info-circle"></i> Sobre a Nike</a>
+                        <a href="#"><i class="fas fa-briefcase"></i> Carreiras</a>
+                        <a href="#"><i class="fas fa-newspaper"></i> Imprensa</a>
+                        <a href="#"><i class="fas fa-globe"></i> Sustentabilidade</a>
+                    </div>
+                    <div>
+                        <h4>Redes</h4>
+                        <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
+                        <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                        <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    &copy; 2026 Nike Studio — Design Premium. Todos os direitos reservados.
+                </div>
+            </div>
+        </footer>
+
+        <!-- ===== TOAST ===== -->
+        <div class="toast" id="profileToast"></div>
+
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SCRIPTS                                      -->
+    <!-- ============================================ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/carrinho.js"></script>
+    <script src="../js/perfil.js"></script>
+</body>
+</html>
