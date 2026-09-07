@@ -51,7 +51,6 @@
     // ANIMAÇÕES GSAP - HERO
     // ============================================
     if (typeof gsap !== 'undefined') {
-        // Hero - entrada
         gsap.from('.hero-text .tag', {
             opacity: 0,
             y: 30,
@@ -97,7 +96,6 @@
         // ANIMAÇÕES GSAP - PRODUTOS (ScrollTrigger)
         // ============================================
         const productCards = document.querySelectorAll('.product-card');
-
         productCards.forEach((card, i) => {
             gsap.from(card, {
                 opacity: 0,
@@ -219,7 +217,6 @@
                 moveCarousel(true);
             }, 100);
 
-            // Animação do carrossel (entrada)
             gsap.from('.carousel-wrapper', {
                 opacity: 0,
                 y: 40,
@@ -253,49 +250,7 @@
         });
 
         // ============================================
-        // ANIMAÇÃO DOS BOTÕES "ADICIONAR" (hover)
-        // ============================================
-        document.addEventListener('mouseover', function(e) {
-            const btn = e.target.closest('.btn-add-cart');
-            if (btn) {
-                gsap.to(btn, {
-                    scale: 1.05,
-                    duration: 0.2,
-                    ease: 'power2.out'
-                });
-            }
-        });
-
-        document.addEventListener('mouseout', function(e) {
-            const btn = e.target.closest('.btn-add-cart');
-            if (btn) {
-                gsap.to(btn, {
-                    scale: 1,
-                    duration: 0.2,
-                    ease: 'power2.out'
-                });
-            }
-        });
-
-        // ============================================
-        // ANIMAÇÃO DE PARALLAX NO HERO (opcional)
-        // ============================================
-        const hero = document.querySelector('.hero');
-        if (hero) {
-            gsap.to(hero, {
-                backgroundPosition: '50% 30%',
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: hero,
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: true
-                }
-            });
-        }
-
-        // ============================================
-        // ANIMAÇÃO DO FOOTER (entrada)
+        // ANIMAÇÃO DO FOOTER
         // ============================================
         const footer = document.querySelector('.footer');
         if (footer) {
@@ -313,187 +268,7 @@
         }
 
         // ============================================
-        // ANIMAÇÃO DO BADGE DO CARRINHO (quando atualiza)
-        // ============================================
-        // Esta animação será acionada pelo cart.js quando o badge mudar
-        window.animateCartBadge = function() {
-            const badge = document.getElementById('cartBadge');
-            if (badge && typeof gsap !== 'undefined') {
-                gsap.from(badge, {
-                    scale: 2,
-                    duration: 0.4,
-                    ease: 'back.out(2)',
-                });
-            }
-        };
-
-        // ============================================
-        // ANIMAÇÃO DE SUCESSO AO ADICIONAR PRODUTO
-        // ============================================
-        window.animateProductAdd = function(card) {
-            if (card && typeof gsap !== 'undefined') {
-                gsap.from(card, {
-                    boxShadow: '0 0 0 3px #0a0a0a',
-                    duration: 0.4,
-                    ease: 'power2.out',
-                    onComplete: () => {
-                        gsap.to(card, {
-                            boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
-                            duration: 0.6,
-                            delay: 0.3
-                        });
-                    }
-                });
-
-                // Efeito de "pulse" no card
-                gsap.to(card, {
-                    scale: 1.02,
-                    duration: 0.15,
-                    yoyo: true,
-                    repeat: 1,
-                    ease: 'power2.out'
-                });
-            }
-        };
-
-        // ============================================
-        // ANIMAÇÃO DE ABERTURA DO CARRINHO
-        // ============================================
-        window.animateCartOpen = function(panel) {
-            if (panel && typeof gsap !== 'undefined') {
-                const content = panel.querySelector('.cart-content');
-                const overlay = panel.querySelector('.cart-overlay');
-
-                gsap.fromTo(content, {
-                    x: '110%',
-                    opacity: 0
-                }, {
-                    x: '0%',
-                    opacity: 1,
-                    duration: 0.5,
-                    ease: 'power3.out'
-                });
-
-                gsap.fromTo(overlay, {
-                    opacity: 0
-                }, {
-                    opacity: 1,
-                    duration: 0.4,
-                    ease: 'power2.out'
-                });
-            }
-        };
-
-        // ============================================
-        // ANIMAÇÃO DE FECHAMENTO DO CARRINHO
-        // ============================================
-        window.animateCartClose = function(panel, callback) {
-            if (panel && typeof gsap !== 'undefined') {
-                const content = panel.querySelector('.cart-content');
-                const overlay = panel.querySelector('.cart-overlay');
-
-                gsap.to(content, {
-                    x: '110%',
-                    opacity: 0,
-                    duration: 0.4,
-                    ease: 'power3.in',
-                    onComplete: callback
-                });
-
-                gsap.to(overlay, {
-                    opacity: 0,
-                    duration: 0.3,
-                    ease: 'power2.out'
-                });
-            } else if (callback) {
-                callback();
-            }
-        };
-
-        // ============================================
-        // ANIMAÇÃO DE REMOÇÃO DE ITEM DO CARRINHO
-        // ============================================
-        window.animateCartItemRemove = function(item, callback) {
-            if (item && typeof gsap !== 'undefined') {
-                gsap.to(item, {
-                    x: 60,
-                    opacity: 0,
-                    duration: 0.3,
-                    ease: 'power2.in',
-                    onComplete: callback
-                });
-            } else if (callback) {
-                callback();
-            }
-        };
-
-        // ============================================
-        // ANIMAÇÃO DE QUANTIDADE (feedback)
-        // ============================================
-        window.animateQtyChange = function(item) {
-            if (item && typeof gsap !== 'undefined') {
-                gsap.from(item, {
-                    scale: 0.97,
-                    duration: 0.2,
-                    ease: 'power2.out'
-                });
-            }
-        };
-
-        // ============================================
-        // ANIMAÇÃO DO CHECKOUT
-        // ============================================
-        window.animateCheckout = function(btn, callback) {
-            if (btn && typeof gsap !== 'undefined') {
-                gsap.from(btn, {
-                    scale: 0.9,
-                    duration: 0.3,
-                    ease: 'back.out(2)',
-                    onComplete: callback
-                });
-            } else if (callback) {
-                callback();
-            }
-        };
-
-        // ============================================
-        // ANIMAÇÃO DO TOAST (notificação)
-        // ============================================
-        window.animateToast = function(toast) {
-            if (toast && typeof gsap !== 'undefined') {
-                gsap.fromTo(toast, {
-                    y: 80,
-                    opacity: 0
-                }, {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.5,
-                    ease: 'back.out(2)'
-                });
-            }
-        };
-
-        // ============================================
-        // ANIMAÇÃO DE ENTRADA DOS SLIDES DO CARROSSEL
-        // ============================================
-        const slides = document.querySelectorAll('.carousel-slide');
-        slides.forEach((slide, i) => {
-            gsap.from(slide, {
-                opacity: 0,
-                scale: 0.9,
-                duration: 0.6,
-                delay: i * 0.05,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: slide,
-                    start: 'top 90%',
-                    toggleActions: 'play none none none'
-                }
-            });
-        });
-
-        // ============================================
-        // ANIMAÇÃO CONTÍNUA DO HERO (background)
+        // ANIMAÇÃO CONTÍNUA DO HERO (SVG flutuante)
         // ============================================
         const heroImage = document.querySelector('.hero-image svg');
         if (heroImage) {

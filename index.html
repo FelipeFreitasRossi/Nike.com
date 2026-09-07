@@ -3,29 +3,23 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carrinho - Nike Studio</title>
-    
-    <!-- Google Fonts (Inter) -->
+    <title>Nike Studio — Design Premium</title>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
-    
-    <!-- Font Awesome 6 (ícones) -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    
-    <!-- CSS externo -->
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/carrinho.css" />
 </head>
 <body>
 
-    <!-- ============================================ -->
-    <!-- HEADER                                       -->
-    <!-- ============================================ -->
+    <!-- ===== HEADER ===== -->
     <header class="header" id="header">
         <div class="container header-inner">
-            <!-- Logo com a imagem da Nike -->
-            <a href="#" class="logo">
+            <!-- Logo com imagem (tamanho proporcional) -->
+            <a href="index.html" class="logo">
                 <img 
                     src="https://i.postimg.cc/HsynzXQj/Nike-(1).jpg" 
                     alt="Nike Logo" 
@@ -35,18 +29,18 @@
 
             <!-- Navegação Desktop -->
             <nav class="nav-desktop">
-                <a href="../index.html#products">Novidades</a>
-                <a href="../index.html#products">Masculino</a>
-                <a href="../index.html#products">Feminino</a>
-                <a href="../index.html#products">Infantil</a>
-                <a href="../index.html#products">Ofertas</a>
+                <a href="#products">Novidades</a>
+                <a href="#products">Masculino</a>
+                <a href="#products">Feminino</a>
+                <a href="#products">Infantil</a>
+                <a href="#products">Ofertas</a>
             </nav>
 
             <!-- Ações -->
             <div class="header-actions">
                 <button class="icon-btn" aria-label="Buscar"><i class="fas fa-search"></i></button>
                 <button class="icon-btn" aria-label="Perfil"><i class="fas fa-user"></i></button>
-                <a href="carrinho.html" class="icon-btn cart-toggle" aria-label="Carrinho">
+                <a href="html/carrinho.html" class="icon-btn cart-toggle" aria-label="Carrinho">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="cart-badge" id="cartBadge">0</span>
                 </a>
@@ -58,82 +52,183 @@
 
         <!-- Navegação Mobile -->
         <div class="nav-mobile" id="navMobile">
-            <a href="../index.html#products"><i class="fas fa-arrow-right"></i> Novidades</a>
-            <a href="../index.html#products"><i class="fas fa-arrow-right"></i> Masculino</a>
-            <a href="../index.html#products"><i class="fas fa-arrow-right"></i> Feminino</a>
-            <a href="../index.html#products"><i class="fas fa-arrow-right"></i> Infantil</a>
-            <a href="../index.html#products"><i class="fas fa-arrow-right"></i> Ofertas</a>
-            <a href="carrinho.html"><i class="fas fa-arrow-right"></i> Meu Carrinho</a>
+            <a href="#products"><i class="fas fa-arrow-right"></i> Novidades</a>
+            <a href="#products"><i class="fas fa-arrow-right"></i> Masculino</a>
+            <a href="#products"><i class="fas fa-arrow-right"></i> Feminino</a>
+            <a href="#products"><i class="fas fa-arrow-right"></i> Infantil</a>
+            <a href="#products"><i class="fas fa-arrow-right"></i> Ofertas</a>
+            <a href="html/carrinho.html"><i class="fas fa-arrow-right"></i> Meu Carrinho</a>
         </div>
     </header>
 
-    <!-- ============================================ -->
-    <!-- PÁGINA DO CARRINHO                          -->
-    <!-- ============================================ -->
-    <section class="cart-page" id="cartPage">
-        <div class="container">
-            <div class="cart-page-header">
-                <h1><i class="fas fa-shopping-bag"></i> Meu Carrinho</h1>
-                <p class="cart-page-sub">Revise seus itens antes de finalizar a compra</p>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <span class="tag"><i class="fas fa-bolt"></i> Coleção Verão 2026</span>
+                <h1>Corra <br />sem limites</h1>
+                <p>O novo tênis de performance com tecnologia adaptativa para todas as distâncias.</p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary"><i class="fas fa-shopping-bag"></i> Comprar agora</a>
+                    <a href="#" class="btn btn-secondary"><i class="fas fa-play"></i> Saiba mais</a>
+                </div>
             </div>
+            <div class="hero-image">
+                <svg viewBox="0 0 400 300" fill="none">
+                    <rect x="50" y="40" width="300" height="200" rx="30" fill="#fff" stroke="#e0e0e0" stroke-width="1.5" />
+                    <circle cx="200" cy="140" r="70" fill="#0a0a0a" />
+                    <path d="M160 140 L220 100 L240 120 L200 160 L160 140Z" fill="#fff" />
+                    <text x="120" y="210" font-family="Inter" font-weight="800" font-size="24" fill="#0a0a0a">AIR MAX</text>
+                    <text x="150" y="240" font-family="Inter" font-weight="400" font-size="14" fill="#777">Tênis de corrida</text>
+                </svg>
+            </div>
+        </div>
+    </section>
 
-            <div class="cart-page-content">
-                <!-- Lista de itens -->
-                <div class="cart-items-list" id="cartItemsList">
-                    <div class="cart-empty-state">
-                        <i class="fas fa-shopping-bag"></i>
-                        <h2>Seu carrinho está vazio</h2>
-                        <p>Que tal dar uma olhada nos nossos produtos?</p>
-                        <a href="../index.html#products" class="btn btn-primary">
-                            <i class="fas fa-arrow-left"></i> Voltar às compras
-                        </a>
+    <!-- ===== PRODUTOS EM DESTAQUE ===== -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Destaques</h2>
+                <p class="section-sub">Os mais vendidos da temporada</p>
+            </div>
+            <div class="product-grid" id="productGrid">
+                <!-- Card 1 -->
+                <div class="product-card" data-id="1" data-name="Air Max 270" data-price="899" data-color="#e8e8e8" data-dark="#0a0a0a">
+                    <div class="product-image">
+                        <svg viewBox="0 0 120 80" fill="none">
+                            <rect x="10" y="10" width="100" height="60" rx="10" fill="#e8e8e8" />
+                            <circle cx="60" cy="40" r="22" fill="#0a0a0a" />
+                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                        </svg>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Masculino</span>
+                        <h3>Air Max 270</h3>
+                        <div class="product-price">
+                            <span class="price">R$ 899</span>
+                            <span class="old-price">R$ 1.099</span>
+                        </div>
+                        <span class="product-badge">-18%</span>
+                        <button class="btn-add-cart" data-id="1">Adicionar</button>
                     </div>
                 </div>
-
-                <!-- Resumo do carrinho -->
-                <div class="cart-summary" id="cartSummary">
-                    <h3>Resumo do pedido</h3>
-                    <div class="summary-row">
-                        <span>Subtotal</span>
-                        <span id="summarySubtotal">R$ 0,00</span>
+                <!-- Card 2 -->
+                <div class="product-card" data-id="2" data-name="Air Force 1" data-price="749" data-color="#f5e6d3" data-dark="#d4a373">
+                    <div class="product-image">
+                        <svg viewBox="0 0 120 80" fill="none">
+                            <rect x="10" y="10" width="100" height="60" rx="10" fill="#f5e6d3" />
+                            <circle cx="60" cy="40" r="22" fill="#d4a373" />
+                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                        </svg>
                     </div>
-                    <div class="summary-row">
-                        <span>Frete</span>
-                        <span id="summaryShipping">Grátis</span>
+                    <div class="product-info">
+                        <span class="product-category">Feminino</span>
+                        <h3>Air Force 1</h3>
+                        <div class="product-price">
+                            <span class="price">R$ 749</span>
+                            <span class="old-price">R$ 849</span>
+                        </div>
+                        <span class="product-badge badge-new">Novo</span>
+                        <button class="btn-add-cart" data-id="2">Adicionar</button>
                     </div>
-                    <div class="summary-divider"></div>
-                    <div class="summary-row total">
-                        <span>Total</span>
-                        <span id="summaryTotal">R$ 0,00</span>
+                </div>
+                <!-- Card 3 -->
+                <div class="product-card" data-id="3" data-name="Court Legacy" data-price="499" data-color="#cfe1f0" data-dark="#2a6f97">
+                    <div class="product-image">
+                        <svg viewBox="0 0 120 80" fill="none">
+                            <rect x="10" y="10" width="100" height="60" rx="10" fill="#cfe1f0" />
+                            <circle cx="60" cy="40" r="22" fill="#2a6f97" />
+                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                        </svg>
                     </div>
-                    <button class="btn btn-primary btn-checkout" id="checkoutBtn">
-                        <i class="fas fa-credit-card"></i> Finalizar Compra
-                    </button>
-                    <a href="../index.html#products" class="btn btn-secondary btn-continue">
-                        <i class="fas fa-arrow-left"></i> Continuar comprando
-                    </a>
+                    <div class="product-info">
+                        <span class="product-category">Infantil</span>
+                        <h3>Court Legacy</h3>
+                        <div class="product-price">
+                            <span class="price">R$ 499</span>
+                            <span class="old-price">R$ 599</span>
+                        </div>
+                        <button class="btn-add-cart" data-id="3">Adicionar</button>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="product-card" data-id="4" data-name="ZoomX Vaporfly" data-price="1299" data-color="#f0e6d8" data-dark="#b08968">
+                    <div class="product-image">
+                        <svg viewBox="0 0 120 80" fill="none">
+                            <rect x="10" y="10" width="100" height="60" rx="10" fill="#f0e6d8" />
+                            <circle cx="60" cy="40" r="22" fill="#b08968" />
+                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                        </svg>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Masculino</span>
+                        <h3>ZoomX Vaporfly</h3>
+                        <div class="product-price">
+                            <span class="price">R$ 1.299</span>
+                        </div>
+                        <span class="product-badge badge-launch">Lançamento</span>
+                        <button class="btn-add-cart" data-id="4">Adicionar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- TOAST (notificação)                          -->
-    <!-- ============================================ -->
-    <div class="toast" id="cartToast"></div>
+    <!-- ===== CARROSSEL (LANÇAMENTOS) ===== -->
+    <section class="carousel-section" id="carouselSection">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Lançamentos</h2>
+                <p class="section-sub">Os modelos mais recentes</p>
+            </div>
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="carouselTrack"></div>
+            </div>
+            <div class="carousel-controls">
+                <button id="prevBtn" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
+                <button id="nextBtn" aria-label="Próximo"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
 
-    <!-- ============================================ -->
-    <!-- FOOTER                                       -->
-    <!-- ============================================ -->
+    <!-- ===== SOBRE ===== -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Por que escolher a Nike</h2>
+                <p class="section-sub">Inovação, performance e estilo</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-icon"><i class="fas fa-running"></i></div>
+                    <h3>Performance</h3>
+                    <p>Tecnologia de ponta para atletas de todos os níveis.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Sustentabilidade</h3>
+                    <p>Materiais reciclados e produção responsável.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Durabilidade</h3>
+                    <p>Produtos feitos para durar e acompanhar seu ritmo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div>
                     <h4>Produtos</h4>
-                    <a href="../index.html#products"><i class="fas fa-shoe-prints"></i> Tênis</a>
-                    <a href="../index.html#products"><i class="fas fa-tshirt"></i> Roupas</a>
-                    <a href="../index.html#products"><i class="fas fa-cog"></i> Acessórios</a>
-                    <a href="../index.html#products"><i class="fas fa-tags"></i> Ofertas</a>
+                    <a href="#products"><i class="fas fa-shoe-prints"></i> Tênis</a>
+                    <a href="#products"><i class="fas fa-tshirt"></i> Roupas</a>
+                    <a href="#products"><i class="fas fa-cog"></i> Acessórios</a>
+                    <a href="#products"><i class="fas fa-tags"></i> Ofertas</a>
                 </div>
                 <div>
                     <h4>Atendimento</h4>
@@ -163,13 +258,15 @@
         </div>
     </footer>
 
-    <!-- ============================================ -->
-    <!-- SCRIPTS                                      -->
-    <!-- ============================================ -->
+    <!-- ===== TOAST (notificação global) ===== -->
+    <div class="toast" id="globalToast"></div>
+
+    <!-- ===== SCRIPTS ===== -->
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <!-- Script personalizado -->
+    <!-- Scripts do site -->
     <script src="js/script.js"></script>
+    <script src="js/carrinho.js"></script>
 </body>
 </html>

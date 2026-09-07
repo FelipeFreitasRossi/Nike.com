@@ -22,10 +22,11 @@
     let toastTimer;
 
     function showToast(message, icon = 'fa-check-circle') {
-        let toast = document.querySelector('.toast');
+        let toast = document.getElementById('cartToast');
         if (!toast) {
             toast = document.createElement('div');
             toast.className = 'toast';
+            toast.id = 'cartToast';
             document.body.appendChild(toast);
         }
         toast.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
@@ -64,6 +65,16 @@
         const total = cart.reduce((sum, item) => sum + item.qty, 0);
         if (cartBadge) {
             cartBadge.textContent = total;
+            // Animação do badge via GSAP (se disponível)
+            if (typeof gsap !== 'undefined' && typeof window.animateCartBadge === 'function') {
+                window.animateCartBadge();
+            } else if (typeof gsap !== 'undefined') {
+                gsap.from(cartBadge, {
+                    scale: 2,
+                    duration: 0.4,
+                    ease: 'back.out(2)'
+                });
+            }
         }
     }
 
@@ -211,68 +222,98 @@
     // ============================================
     // CHECKOUT
     // ============================================
-    checkoutBtn.addEventListener('click', function() {
-        if (cart.length === 0) {
-            showToast('Seu carrinho está vazio!', 'fa-exclamation-circle');
-            return;
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', function() {
+            if (cart.length === 0) {
+                showToast('Seu carrinho está vazio!', 'fa-exclamation-circle');
+                return;
+            }
+
+            const total = getTotal();
+            showToast(`Pedido finalizado! Total: ${formatPrice(total)}`, 'fa-check-circle');
+
+            if (typeof gsap !== 'undefined') {
+                gsap.from(this, {
+                    scale: 0.9,
+                    duration: 0.3,
+                    ease: 'back.out(2)',
+                    onComplete: () => {
+                        cart = [];
+                        saveCart();
+                        renderCartItems();
+                        updateBadge();
+                    }
+                });
+            } else {
+                cart = [];
+                saveCart();
+                renderCartItems();
+                updateBadge();
+            }
+        });
+    }
+
+    // ============================================
+    // ADICIONAR PRODUTOS (botões na página principal)
+    // ============================================
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.btn-add-cart');
+        if (!btn) return;
+
+        const card = btn.closest('.product-card');
+        if (!card) return;
+
+        const id = parseInt(card.dataset.id);
+        const name = card.dataset.name;
+        const price = parseFloat(card.dataset.price);
+        const color = card.dataset.color || '#e8e8e8';
+        const darkColor = card.dataset.dark || '#0a0a0a';
+        const category = card.querySelector('.product-category')?.textContent || 'Tênis';
+
+        // Verifica se já existe no carrinho
+        const existing = cart.find(item => item.id === id);
+        if (existing) {
+            existing.qty++;
+        } else {
+            cart.push({
+                id,
+                name,
+                price,
+                qty: 1,
+                color,
+                darkColor,
+                category
+            });
         }
 
-        const total = getTotal();
-        showToast(`Pedido finalizado! Total: ${formatPrice(total)}`, 'fa-check-circle');
+        saveCart();
+        updateBadge();
 
+        // Feedback visual com GSAP
         if (typeof gsap !== 'undefined') {
-            gsap.from(this, {
-                scale: 0.9,
-                duration: 0.3,
-                ease: 'back.out(2)',
+            gsap.from(card, {
+                boxShadow: '0 0 0 3px #0a0a0a',
+                duration: 0.4,
+                ease: 'power2.out',
                 onComplete: () => {
-                    cart = [];
-                    saveCart();
-                    renderCartItems();
-                    updateBadge();
+                    gsap.to(card, {
+                        boxShadow: '0 4px 24px rgba(0,0,0,0.04)',
+                        duration: 0.6,
+                        delay: 0.3
+                    });
                 }
             });
-        } else {
-            cart = [];
-            saveCart();
-            renderCartItems();
-            updateBadge();
+            gsap.to(card, {
+                scale: 1.02,
+                duration: 0.15,
+                yoyo: true,
+                repeat: 1,
+                ease: 'power2.out'
+            });
         }
+
+        showToast(`${name} adicionado ao carrinho!`, 'fa-check-circle');
     });
-
-    // ============================================
-    // MENU MOBILE
-    // ============================================
-    const menuToggle = document.getElementById('menuToggle');
-    const navMobile = document.getElementById('navMobile');
-
-    if (menuToggle && navMobile) {
-        menuToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            navMobile.classList.toggle('open');
-        });
-
-        document.addEventListener('click', function(e) {
-            const header = document.getElementById('header');
-            if (header && !header.contains(e.target)) {
-                navMobile.classList.remove('open');
-            }
-        });
-    }
-
-    // ============================================
-    // HEADER SCROLL EFFECT
-    // ============================================
-    const header = document.getElementById('header');
-    if (header) {
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 20) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-    }
 
     // ============================================
     // INICIALIZAÇÃO
