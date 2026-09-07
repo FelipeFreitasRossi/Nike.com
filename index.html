@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nike Style – Inspirado na Nike</title>
+    <!-- CSS -->
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #111;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo svg {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-desktop {
+            display: flex;
+            gap: 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-desktop a:hover {
+            color: #777;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .header-actions .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: #111;
+            transition: color 0.2s;
+        }
+
+        .header-actions .icon-btn:hover {
+            color: #777;
+        }
+
+        /* Menu mobile (hamburger) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #111;
+            transition: 0.3s;
+        }
+
+        /* Mobile nav */
+        .nav-mobile {
+            display: none;
+            background: #fff;
+            padding: 20px;
+            border-top: 1px solid #eee;
+            flex-direction: column;
+            gap: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-mobile.open {
+            display: flex;
+        }
+
+        .nav-mobile a {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .nav-mobile a:last-child {
+            border-bottom: none;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: #e6e6e6;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            background-image: linear-gradient(135deg, #d4d4d4 0%, #f0f0f0 100%);
+        }
+
+        .hero-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .hero-text {
+            flex: 1 1 300px;
+        }
+
+        .hero-text .tag {
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin: 0.5rem 0 1rem;
+            text-transform: uppercase;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #333;
+            max-width: 400px;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #111;
+            color: #fff;
+            padding: 14px 36px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn:hover {
+            background: #333;
+            transform: scale(1.02);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #111;
+            border: 2px solid #111;
+        }
+
+        .btn-outline:hover {
+            background: #111;
+            color: #fff;
+        }
+
+        .hero-image {
+            flex: 1 1 300px;
+            text-align: center;
+        }
+
+        .hero-image svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ===== PRODUTOS EM DESTAQUE ===== */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .section-sub {
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-image {
+            background: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+        }
+
+        .product-image svg {
+            max-height: 100%;
+            width: auto;
+        }
+
+        .product-info {
+            padding: 16px 18px 20px;
+        }
+
+        .product-info .product-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .product-info h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .product-info .price {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #111;
+        }
+
+        .product-info .old-price {
+            font-size: 0.85rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+
+        .product-badge {
+            background: #e63946;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 2px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 6px;
+        }
+
+        /* ===== CARROSSEL (LANÇAMENTOS) ===== */
+        .carousel-section {
+            background: #fff;
+            padding: 50px 0;
+            margin: 40px 0;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .carousel-wrapper {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 20px;
+        }
+
+        .carousel-slide {
+            min-width: calc(33.333% - 14px);
+            background: #fafafa;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        .carousel-slide svg {
+            max-height: 150px;
+            margin: 0 auto 12px;
+        }
+
+        .carousel-slide h4 {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .carousel-slide .price {
+            font-weight: 600;
+            color: #111;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 24px;
+        }
+
+        .carousel-controls button {
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-controls button:hover {
+            background: #ddd;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #111;
+            color: #ccc;
+            padding: 50px 0 30px;
+            margin-top: 50px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-grid h4 {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-grid a {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-grid a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .nav-desktop {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 16px;
+            }
+
+            .carousel-slide {
+                min-width: calc(50% - 10px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-slide {
+                min-width: calc(100% - 0px);
+            }
+
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .header-inner {
+                height: 60px;
+            }
+
+            .btn {
+                padding: 12px 28px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <!-- Logo (SVG Nike style) -->
+            <a href="#" class="logo">
+                <svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 30 L170 10 L170 20 L30 40 L30 30Z" fill="#111" />
+                    <path d="M30 32 L170 12 L170 22 L30 42 L30 32Z" fill="#111" />
+                    <text x="40" y="50" font-family="Arial, sans-serif" font-weight="900" font-size="28" fill="#111">NIKE</text>
+                    <text x="120" y="50" font-family="Arial, sans-serif" font-weight="300" font-size="14" fill="#555">STYLE</text>
+                </svg>
+            </a>
+
+            <!-- Navegação Desktop -->
+            <nav class="nav-desktop">
+                <a href="#">Novidades</a>
+                <a href="#">Masculino</a>
+                <a href="#">Feminino</a>
+                <a href="#">Infantil</a>
+                <a href="#">Ofertas</a>
+            </nav>
+
+            <!-- Ações direita -->
+            <div class="header-actions">
+                <button class="icon-btn" aria-label="Buscar">🔍</button>
+                <button class="icon-btn" aria-label="Carrinho">🛒</button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navegação Mobile (oculta por padrão) -->
+        <div class="nav-mobile" id="navMobile">
+            <a href="#">Novidades</a>
+            <a href="#">Masculino</a>
+            <a href="#">Feminino</a>
+            <a href="#">Infantil</a>
+            <a href="#">Ofertas</a>
+            <a href="#">Minha Conta</a>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <span class="tag">Coleção Verão 2026</span>
+                <h1>Corra<br />sem limites</h1>
+                <p>O novo tênis de performance com tecnologia adaptativa para todas as distâncias.</p>
+                <a href="#" class="btn">Comprar agora</a>
+                <a href="#" class="btn btn-outline" style="margin-left: 12px;">Saiba mais</a>
+            </div>
+            <div class="hero-image">
+                <svg viewBox="0 0 400 300" fill="none">
+                    <rect x="50" y="40" width="300" height="200" rx="30" fill="#fff" stroke="#ccc" stroke-width="2" />
+                    <circle cx="200" cy="140" r="70" fill="#111" />
+                    <path d="M160 140 L220 100 L240 120 L200 160 L160 140Z" fill="#fff" />
+                    <text x="120" y="210" font-family="Arial" font-weight="700" font-size="24" fill="#111">AIR MAX</text>
+                    <text x="150" y="240" font-family="Arial" font-weight="300" font-size="14" fill="#555">Tênis de corrida</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRODUTOS EM DESTAQUE ===== -->
+    <div class="container">
+        <h2 class="section-title">Destaques</h2>
+        <p class="section-sub">Os mais vendidos da temporada</p>
+        <div class="product-grid" id="productGrid">
+            <!-- Card 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <svg viewBox="0 0 120 80" fill="none">
+                        <rect x="10" y="10" width="100" height="60" rx="10" fill="#e0e0e0" />
+                        <circle cx="60" cy="40" r="22" fill="#111" />
+                        <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                    </svg>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Masculino</span>
+                    <h3>Air Max 270</h3>
+                    <span class="price">R$ 899</span>
+                    <span class="old-price">R$ 1.099</span>
+                    <div class="product-badge">-18%</div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <svg viewBox="0 0 120 80" fill="none">
+                        <rect x="10" y="10" width="100" height="60" rx="10" fill="#f5e6d3" />
+                        <circle cx="60" cy="40" r="22" fill="#d4a373" />
+                        <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                    </svg>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Feminino</span>
+                    <h3>Air Force 1</h3>
+                    <span class="price">R$ 749</span>
+                    <span class="old-price">R$ 849</span>
+                    <div class="product-badge">Novo</div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <svg viewBox="0 0 120 80" fill="none">
+                        <rect x="10" y="10" width="100" height="60" rx="10" fill="#cfe1f0" />
+                        <circle cx="60" cy="40" r="22" fill="#2a6f97" />
+                        <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                    </svg>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Infantil</span>
+                    <h3>Court Legacy</h3>
+                    <span class="price">R$ 499</span>
+                    <span class="old-price">R$ 599</span>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <svg viewBox="0 0 120 80" fill="none">
+                        <rect x="10" y="10" width="100" height="60" rx="10" fill="#f0e6d8" />
+                        <circle cx="60" cy="40" r="22" fill="#b08968" />
+                        <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                    </svg>
+                </div>
+                <div class="product-info">
+                    <span class="product-category">Masculino</span>
+                    <h3>ZoomX Vaporfly</h3>
+                    <span class="price">R$ 1.299</span>
+                    <div class="product-badge">Lançamento</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CARROSSEL (LANÇAMENTOS) ===== -->
+    <div class="container carousel-section">
+        <h2 class="section-title">🔥 Lançamentos</h2>
+        <div class="carousel-wrapper">
+            <div class="carousel-track" id="carouselTrack">
+                <!-- Slides serão inseridos via JS -->
+            </div>
+        </div>
+        <div class="carousel-controls">
+            <button id="prevBtn">◀</button>
+            <button id="nextBtn">▶</button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4>Produtos</h4>
+                    <a href="#">Tênis</a>
+                    <a href="#">Roupas</a>
+                    <a href="#">Acessórios</a>
+                    <a href="#">Ofertas</a>
+                </div>
+                <div>
+                    <h4>Atendimento</h4>
+                    <a href="#">Minha Conta</a>
+                    <a href="#">Pedidos</a>
+                    <a href="#">Trocas e Devoluções</a>
+                    <a href="#">Central de Ajuda</a>
+                </div>
+                <div>
+                    <h4>Sobre</h4>
+                    <a href="#">Sobre a Nike</a>
+                    <a href="#">Carreiras</a>
+                    <a href="#">Imprensa</a>
+                    <a href="#">Sustentabilidade</a>
+                </div>
+                <div>
+                    <h4>Redes</h4>
+                    <a href="#">Instagram</a>
+                    <a href="#">YouTube</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Facebook</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Nike Style – Site inspirado na Nike. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ----- MENU MOBILE -----
+            const menuToggle = document.getElementById('menuToggle');
+            const navMobile = document.getElementById('navMobile');
+
+            menuToggle.addEventListener('click', function() {
+                navMobile.classList.toggle('open');
+            });
+
+            // Fechar menu ao clicar em um link (opcional)
+            navMobile.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    navMobile.classList.remove('open');
+                });
+            });
+
+            // ----- CARROSSEL DE LANÇAMENTOS -----
+            const track = document.getElementById('carouselTrack');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            // Dados dos slides
+            const slidesData = [{
+                name: 'Air Max Pulse',
+                price: 'R$ 999',
+                color: '#f5e6d3'
+            }, {
+                name: 'Dunk Low Retro',
+                price: 'R$ 849',
+                color: '#cfe1f0'
+            }, {
+                name: 'Vaporfly 3',
+                price: 'R$ 1.499',
+                color: '#f0e6d8'
+            }, {
+                name: 'Air Zoom Tempo',
+                price: 'R$ 1.199',
+                color: '#e0d5c0'
+            }, {
+                name: 'Court Vision',
+                price: 'R$ 599',
+                color: '#d4c9b8'
+            }];
+
+            // Renderizar slides
+            function renderSlides() {
+                track.innerHTML = '';
+                slidesData.forEach(function(item) {
+                    const slide = document.createElement('div');
+                    slide.className = 'carousel-slide';
+                    slide.innerHTML = `
+                        <svg viewBox="0 0 120 80" fill="none">
+                            <rect x="10" y="10" width="100" height="60" rx="10" fill="${item.color}" />
+                            <circle cx="60" cy="40" r="22" fill="#333" />
+                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                        </svg>
+                        <h4>${item.name}</h4>
+                        <span class="price">${item.price}</span>
+                    `;
+                    track.appendChild(slide);
+                });
+            }
+            renderSlides();
+
+            // Lógica de rotação
+            let currentIndex = 0;
+            const totalSlides = slidesData.length;
+            let slidesPerView = 3;
+
+            function updateSlidesPerView() {
+                if (window.innerWidth < 480) slidesPerView = 1;
+                else if (window.innerWidth < 768) slidesPerView = 2;
+                else slidesPerView = 3;
+            }
+            updateSlidesPerView();
+
+            function getSlideWidth() {
+                const trackStyle = window.getComputedStyle(track);
+                const gap = 20; // mesmo valor do gap no CSS
+                const totalWidth = track.parentElement.clientWidth;
+                return (totalWidth - (slidesPerView - 1) * gap) / slidesPerView;
+            }
+
+            function moveCarousel() {
+                const slideWidth = getSlideWidth();
+                const offset = currentIndex * (slideWidth + 20);
+                track.style.transform = `translateX(-${offset}px)`;
+            }
+
+            function nextSlide() {
+                const maxIndex = totalSlides - slidesPerView;
+                if (currentIndex < maxIndex) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                moveCarousel();
+            }
+
+            function prevSlide() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentIndex = totalSlides - slidesPerView;
+                }
+                moveCarousel();
+            }
+
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+
+            // Ajustar ao redimensionar
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(function() {
+                    updateSlidesPerView();
+                    moveCarousel();
+                }, 200);
+            });
+
+            // Inicializar carrossel
+            setTimeout(moveCarousel, 50);
+
+            // ----- (Opcional) Efeito de destaque nos cards -----
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(function(card) {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'transform 0.25s, box-shadow 0.25s';
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
