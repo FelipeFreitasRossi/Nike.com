@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bem-vindo à Nike Studio</title>
-
+    <title>UrbanShop — Bem-vindo</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/welcome.css" />
 </head>
@@ -18,95 +19,128 @@
     <div class="preloader" id="preloader">
         <div class="preloader-container">
             <div class="preloader-logo-wrapper">
-                <svg class="preloader-ring" viewBox="0 0 130 130">
-                    <circle class="ring-track" cx="65" cy="65" r="60"></circle>
-                    <circle class="ring-fill" id="ringFill" cx="65" cy="65" r="60" stroke-dasharray="377" stroke-dashoffset="377"></circle>
+                <svg viewBox="0 0 200 60" class="preloader-logo-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="8" y="12" width="12" height="38" rx="2" fill="#ffffff" />
+                    <rect x="26" y="4" width="12" height="46" rx="2" fill="#ffffff" />
+                    <rect x="44" y="18" width="12" height="32" rx="2" fill="#ffffff" />
+                    <rect x="62" y="8" width="12" height="42" rx="2" fill="#ffffff" />
+                    <rect x="80" y="22" width="12" height="28" rx="2" fill="#ffffff" />
+                    <text x="106" y="38" font-family="Inter, sans-serif" font-weight="900" font-size="28" fill="#ffffff" letter-spacing="2">URBAN</text>
+                    <text x="106" y="55" font-family="Inter, sans-serif" font-weight="700" font-size="14" fill="#888888" letter-spacing="3">SHOP</text>
                 </svg>
-                <div class="preloader-logo-glow"></div>
-                <img src="https://i.postimg.cc/8c6HT4YC/Nike.png" alt="Nike" class="preloader-logo-img" />
             </div>
-            <div class="preloader-progress">
-                <div class="preloader-progress-bar" id="progressBar"></div>
-            </div>
-            <p class="preloader-text">
-                <span class="preloader-text-main">Carregando experiência</span>
-                <span class="preloader-text-percent" id="progressPercent">0%</span>
-            </p>
-            <div class="preloader-dots">
-                <span></span><span></span><span></span>
-                <span></span><span></span><span></span>
-                <span></span><span></span><span></span>
-            </div>
+            <div class="loader"></div>
+            <p class="preloader-text">Carregando experiência</p>
         </div>
     </div>
 
     <!-- ===== PÁGINA DE BOAS-VINDAS ===== -->
     <div class="welcome-wrapper" id="welcomeWrapper">
-        <!-- Fundo com imagem responsiva -->
-        <div class="welcome-bg">
-            <picture>
-                <source media="(max-width: 768px)" srcset="https://i.postimg.cc/1Xjr0w1h/Gemini-Generated-Image-tizssmtizssmtizs.jpg" />
-                <source media="(min-width: 769px)" srcset="https://i.postimg.cc/HLXvpZDb/Gemini-Generated-Image-2v8y9u2v8y9u2v8y.jpg" />
-                <img src="https://i.postimg.cc/HLXvpZDb/Gemini-Generated-Image-2v8y9u2v8y9u2v8y.jpg" alt="Nike Studio" class="welcome-bg-img" />
-            </picture>
-            <div class="welcome-overlay"></div>
-        </div>
+        
+        <!-- ===== HEADER PRETO ===== -->
+        <header class="welcome-header">
+            <div class="container welcome-header-inner">
+                <a href="index.html" class="welcome-logo-small">
+                    <svg viewBox="0 0 120 30" class="h-7 w-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="6" width="8" height="20" rx="2" fill="#ffffff" />
+                        <rect x="16" y="2" width="8" height="24" rx="2" fill="#ffffff" />
+                        <rect x="28" y="10" width="8" height="16" rx="2" fill="#ffffff" />
+                        <rect x="40" y="4" width="8" height="22" rx="2" fill="#ffffff" />
+                        <rect x="52" y="12" width="8" height="14" rx="2" fill="#ffffff" />
+                        <text x="68" y="18" font-family="Inter, sans-serif" font-weight="900" font-size="14" fill="#ffffff" letter-spacing="1">URBAN</text>
+                        <text x="68" y="28" font-family="Inter, sans-serif" font-weight="700" font-size="8" fill="#888888" letter-spacing="2">SHOP</text>
+                    </svg>
+                </a>
+                <nav class="welcome-nav">
+                    <a href="#welcomeContent">Sobre</a>
+                    <a href="#welcomeContent">Produtos</a>
+                    <a href="#welcomeContent">Contato</a>
+                </nav>
+                <a href="dashboard.html" class="btn btn-primary btn-sm">Entrar</a>
+            </div>
+        </header>
 
-        <div class="welcome-orb welcome-orb-1"></div>
-        <div class="welcome-orb welcome-orb-2"></div>
-
-        <!-- Conteúdo central -->
-        <div class="welcome-content">
-            <div class="welcome-inner">
-                <!-- Logo -->
+        <!-- ===== CONTEÚDO PRINCIPAL (branco) ===== -->
+        <main class="welcome-main" id="welcomeContent">
+            <div class="container welcome-main-inner">
+                
+                <!-- Logo grande -->
                 <div class="welcome-logo">
-                    <img src="https://i.postimg.cc/8c6HT4YC/Nike.png" alt="Nike" class="welcome-logo-img" />
+                    <svg viewBox="0 0 300 80" class="welcome-logo-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="20" width="18" height="50" rx="3" fill="#000000" />
+                        <rect x="34" y="8" width="18" height="62" rx="3" fill="#000000" />
+                        <rect x="58" y="28" width="18" height="42" rx="3" fill="#000000" />
+                        <rect x="82" y="14" width="18" height="56" rx="3" fill="#000000" />
+                        <rect x="106" y="34" width="18" height="36" rx="3" fill="#000000" />
+                        <rect x="14" y="28" width="4" height="4" rx="1" fill="#ffffff" opacity="0.3" />
+                        <rect x="14" y="38" width="4" height="4" rx="1" fill="#ffffff" opacity="0.3" />
+                        <rect x="14" y="48" width="4" height="4" rx="1" fill="#ffffff" opacity="0.3" />
+                        <rect x="38" y="16" width="4" height="4" rx="1" fill="#ffffff" opacity="0.3" />
+                        <rect x="38" y="28" width="4" height="4" rx="1" fill="#ffffff" opacity="0.3" />
+                        <rect x="38" y="40" width="4" height="4" rx="1" fill="#ffffff" opacity="0.3" />
+                        <rect x="86" y="22" width="4" height="4" rx="1" fill="#ffffff" opacity="0.3" />
+                        <rect x="86" y="34" width="4" height="4" rx="1" fill="#ffffff" opacity="0.3" />
+                        <rect x="86" y="46" width="4" height="4" rx="1" fill="#ffffff" opacity="0.3" />
+                        <text x="145" y="48" font-family="Inter, sans-serif" font-weight="900" font-size="32" fill="#000000" letter-spacing="2">URBAN</text>
+                        <text x="145" y="70" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#666666" letter-spacing="4">SHOP</text>
+                        <text x="145" y="80" font-family="Inter, sans-serif" font-weight="300" font-size="8" fill="#999999" letter-spacing="2">STYLE · URBAN · ESSENTIAL</text>
+                    </svg>
                 </div>
 
+                <!-- Título -->
                 <h1 class="welcome-title">
                     Bem-vindo à<br />
-                    <span>Nike Studio</span>
+                    <span>UrbanShop</span>
                 </h1>
 
+                <!-- Subtítulo -->
                 <p class="welcome-subtitle">
-                    Onde a performance encontra o estilo.<br />
-                    Inovação, movimento e excelência em cada passo.
+                    Onde o estilo urbano encontra a essência moderna.<br />
+                    Moda, atitude e autenticidade em cada peça.
                 </p>
 
+                <!-- Mensagem -->
                 <div class="welcome-message">
                     <p>
-                        A Nike acredita que o esporte tem o poder de unir pessoas,
-                        superar limites e transformar vidas. Por isso, criamos um
-                        espaço onde você pode explorar o melhor da tecnologia
-                        esportiva, com produtos que unem design, conforto e
-                        performance.
+                        A UrbanShop acredita que a moda é uma forma de expressão. 
+                        Cada peça conta uma história, cada estilo reflete uma personalidade.
                     </p>
                     <p>
-                        Prepare-se para uma experiência única. Aqui, cada detalhe
-                        foi pensado para inspirar você a ir além.
+                        Prepare-se para descobrir um universo de tendências urbanas, 
+                        onde autenticidade e qualidade caminham juntas.
                     </p>
                 </div>
 
-                <a href="dashboard.html" class="btn btn-primary btn-enter">
-                    <i class="fas fa-arrow-right"></i> Visitar Site
+                <!-- ===== NOVO BOTÃO COM ESTILO PERSONALIZADO ===== -->
+                <a href="dashboard.html" class="btn-welcome">
+                    Acessar
                 </a>
+
+                <!-- Scroll indicator -->
+                <div class="scroll-indicator">
+                    <span>Scroll</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+
             </div>
-        </div>
+        </main>
 
-        <div class="welcome-scroll-cue">
-            <span class="mouse"></span>
-            Role para explorar
-        </div>
-
-        <!-- Rodapé -->
+        <!-- ===== FOOTER PRETO ===== -->
         <footer class="welcome-footer">
-            <p>&copy; 2026 Nike Studio — Todos os direitos reservados.</p>
+            <div class="container">
+                <p>&copy; 2026 UrbanShop — Todos os direitos reservados.</p>
+                <div class="welcome-footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
         </footer>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/script.js"></script>
     <script src="js/welcome.js"></script>
 </body>
 </html>

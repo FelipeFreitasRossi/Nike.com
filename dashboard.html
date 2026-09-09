@@ -3,298 +3,387 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nike Studio — Dashboard</title>
-
-    <!-- Google Fonts -->
+    <title>UrbanShop — Dashboard</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
-
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-    <!-- CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
     <!-- ============================================ -->
-    <!-- HEADER                                       -->
+    <!-- HEADER PREMIUM                               -->
     <!-- ============================================ -->
-    <header class="header" id="header">
-        <div class="container header-inner">
-            <a href="dashboard.html" class="logo">
-                <img
-                    src="https://i.postimg.cc/8c6HT4YC/Nike.png"
-                    alt="Nike Logo"
-                    class="logo-img"
-                />
+    <header class="header-premium" id="headerPremium">
+        <div class="container header-premium-inner">
+            
+            <!-- Logo com animação -->
+            <a href="dashboard.html" class="logo-premium">
+                <svg viewBox="0 0 140 35" class="logo-premium-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="8" width="9" height="22" rx="2" fill="#ffffff" />
+                    <rect x="20" y="3" width="9" height="27" rx="2" fill="#ffffff" />
+                    <rect x="34" y="13" width="9" height="17" rx="2" fill="#ffffff" />
+                    <rect x="48" y="6" width="9" height="24" rx="2" fill="#ffffff" />
+                    <rect x="62" y="16" width="9" height="14" rx="2" fill="#ffffff" />
+                    <text x="80" y="22" font-family="Inter, sans-serif" font-weight="900" font-size="16" fill="#ffffff" letter-spacing="1.5">URBAN</text>
+                    <text x="80" y="33" font-family="Inter, sans-serif" font-weight="700" font-size="9" fill="#888888" letter-spacing="2.5">SHOP</text>
+                </svg>
+                <span class="logo-premium-badge">PREMIUM</span>
             </a>
 
-            <nav class="nav-desktop">
-                <a href="#carouselSection">Novidades</a>
-                <a href="#products">Masculino</a>
-                <a href="#products">Feminino</a>
-                <a href="#products">Infantil</a>
-                <a href="#products">Ofertas</a>
+            <!-- Navegação Desktop -->
+            <nav class="nav-premium">
+                <a href="#products" class="nav-premium-link active">
+                    <span>Novidades</span>
+                    <span class="nav-premium-dot"></span>
+                </a>
+                <a href="#products" class="nav-premium-link">
+                    <span>Masculino</span>
+                    <span class="nav-premium-dot"></span>
+                </a>
+                <a href="#products" class="nav-premium-link">
+                    <span>Feminino</span>
+                    <span class="nav-premium-dot"></span>
+                </a>
+                <a href="#products" class="nav-premium-link">
+                    <span>Infantil</span>
+                    <span class="nav-premium-dot"></span>
+                </a>
+                <a href="#products" class="nav-premium-link">
+                    <span>Ofertas</span>
+                    <span class="nav-premium-dot"></span>
+                </a>
             </nav>
 
-            <div class="header-actions">
-                <button class="icon-btn" aria-label="Buscar"><i class="fas fa-search"></i></button>
-                <a href="html/perfil.html" class="icon-btn" aria-label="Perfil"><i class="fas fa-user"></i></a>
-                <a href="html/carrinho.html" class="icon-btn cart-toggle" aria-label="Carrinho">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span class="cart-badge" id="cartBadge">0</span>
-                </a>
-                <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-                    <span></span><span></span><span></span>
+            <!-- Ações do Header -->
+            <div class="header-actions-premium">
+                <!-- Ícone de busca -->
+                <button class="action-btn-premium search-btn" aria-label="Buscar">
+                    <i class="fas fa-search"></i>
+                    <span class="action-tooltip">Buscar</span>
                 </button>
+
+                <!-- Ícone de perfil -->
+                <button class="action-btn-premium profile-btn" aria-label="Perfil">
+                    <i class="fas fa-user"></i>
+                    <span class="action-tooltip">Minha Conta</span>
+                </button>
+
+                <!-- Ícone de favoritos -->
+                <button class="action-btn-premium fav-btn" aria-label="Favoritos">
+                    <i class="fas fa-heart"></i>
+                    <span class="action-tooltip">Favoritos</span>
+                    <span class="action-badge">3</span>
+                </button>
+
+                <!-- Carrinho -->
+                <a href="html/carrinho.html" class="action-btn-premium cart-btn" aria-label="Carrinho">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="action-tooltip">Carrinho</span>
+                    <span class="action-badge cart-badge" id="cartBadge">0</span>
+                </a>
+
+                <!-- Hambúrguer Premium -->
+                <div class="hamburger-premium-wrapper">
+                    <label class="burger-premium" for="burger">
+                        <input type="checkbox" id="burger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                </div>
             </div>
         </div>
 
-        <div class="nav-mobile" id="navMobile">
-            <a href="#carouselSection"><i class="fas fa-arrow-right"></i> Novidades</a>
-            <a href="#products"><i class="fas fa-arrow-right"></i> Masculino</a>
-            <a href="#products"><i class="fas fa-arrow-right"></i> Feminino</a>
-            <a href="#products"><i class="fas fa-arrow-right"></i> Infantil</a>
-            <a href="#products"><i class="fas fa-arrow-right"></i> Ofertas</a>
-            <a href="html/perfil.html"><i class="fas fa-arrow-right"></i> Meu Perfil</a>
-            <a href="html/carrinho.html"><i class="fas fa-arrow-right"></i> Meu Carrinho</a>
+        <!-- ===== MENU MOBILE PREMIUM ===== -->
+        <div class="mobile-menu-premium" id="mobileMenu">
+            <div class="mobile-menu-premium-inner">
+                <!-- Avatar do usuário -->
+                <div class="mobile-user">
+                    <div class="mobile-user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="mobile-user-info">
+                        <h4>Olá, Visitante</h4>
+                        <span>Bem-vindo à UrbanShop</span>
+                    </div>
+                </div>
+
+                <!-- Navegação mobile -->
+                <nav class="mobile-nav-premium">
+                    <a href="#products" class="mobile-nav-premium-link active">
+                        <i class="fas fa-compass"></i> Novidades
+                    </a>
+                    <a href="#products" class="mobile-nav-premium-link">
+                        <i class="fas fa-male"></i> Masculino
+                    </a>
+                    <a href="#products" class="mobile-nav-premium-link">
+                        <i class="fas fa-female"></i> Feminino
+                    </a>
+                    <a href="#products" class="mobile-nav-premium-link">
+                        <i class="fas fa-child"></i> Infantil
+                    </a>
+                    <a href="#products" class="mobile-nav-premium-link">
+                        <i class="fas fa-tags"></i> Ofertas
+                    </a>
+                    <a href="html/carrinho.html" class="mobile-nav-premium-link highlight">
+                        <i class="fas fa-shopping-bag"></i> Meu Carrinho
+                    </a>
+                </nav>
+
+                <!-- Rodapé do menu -->
+                <div class="mobile-premium-footer">
+                    <div class="mobile-premium-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                    <p>&copy; 2026 UrbanShop</p>
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- ============================================ -->
-    <!-- HERO                                         -->
+    <!-- BARRA DE PESQUISA FIXA                      -->
     <!-- ============================================ -->
-    <section class="hero" id="hero">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <span class="tag"><i class="fas fa-bolt"></i> Coleção Verão 2026</span>
-                <h1>Corra <br />sem limites</h1>
-                <p>O novo tênis de performance com tecnologia adaptativa para todas as distâncias.</p>
-                <div class="hero-buttons">
-                    <a href="#products" class="btn btn-primary"><i class="fas fa-shopping-bag"></i> Comprar agora</a>
-                    <a href="#carouselSection" class="btn btn-secondary"><i class="fas fa-play"></i> Saiba mais</a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <svg viewBox="0 0 400 300" fill="none">
-                    <rect x="50" y="40" width="300" height="200" rx="30" fill="#fff" stroke="#e0e0e0" stroke-width="1.5" />
-                    <circle cx="200" cy="140" r="70" fill="#0a0a0a" />
-                    <path d="M160 140 L220 100 L240 120 L200 160 L160 140Z" fill="#fff" />
-                    <text x="120" y="210" font-family="Inter" font-weight="800" font-size="24" fill="#0a0a0a">AIR MAX</text>
-                    <text x="150" y="240" font-family="Inter" font-weight="400" font-size="14" fill="#777">Tênis de corrida</text>
+    <div class="search-bar-fixed" id="searchBar">
+        <div class="container search-bar-inner">
+            <label class="cir-search">
+                <svg class="cir-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.34-4.34"></path>
                 </svg>
-            </div>
+                <input class="cir-search__field" type="search" placeholder="Buscar produtos, categorias, marcas..." aria-label="Search" />
+                <kbd class="cir-search__kbd">⌘ K</kbd>
+            </label>
         </div>
-    </section>
+    </div>
 
     <!-- ============================================ -->
-    <!-- PRODUTOS                                     -->
+    <!-- CONTEÚDO EM BRANCO                          -->
     <!-- ============================================ -->
-    <section class="products" id="products">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Destaques</h2>
-                <p class="section-sub">Os mais vendidos da temporada</p>
-            </div>
-            <div class="product-grid" id="productGrid">
-                <div class="product-card" data-id="1" data-name="Air Max 270" data-price="899" data-color="#e8e8e8" data-dark="#0a0a0a">
-                    <div class="product-image">
-                        <svg viewBox="0 0 120 80" fill="none">
-                            <rect x="10" y="10" width="100" height="60" rx="10" fill="#e8e8e8" />
-                            <circle cx="60" cy="40" r="22" fill="#0a0a0a" />
-                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
-                        </svg>
+    <main class="bg-white min-h-screen pt-28">
+
+        <!-- ===== HERO ===== -->
+        <section class="hero" id="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <span class="tag"><i class="fas fa-bolt"></i> Coleção Verão 2026</span>
+                    <h1>Estilo Urbano<br />sem limites</h1>
+                    <p>Descubra a nova coleção que une conforto, design e atitude para o seu dia a dia.</p>
+                    <div class="hero-buttons">
+                        <a href="#products" class="btn btn-primary"><i class="fas fa-shopping-bag"></i> Comprar agora</a>
+                        <a href="#" class="btn btn-secondary"><i class="fas fa-play"></i> Saiba mais</a>
                     </div>
-                    <div class="product-info">
-                        <span class="product-category">Masculino</span>
-                        <h3>Air Max 270</h3>
-                        <div class="product-price">
-                            <span class="price">R$ 899</span>
-                            <span class="old-price">R$ 1.099</span>
+                </div>
+                <div class="hero-image">
+                    <svg viewBox="0 0 400 300" fill="none">
+                        <rect x="50" y="40" width="300" height="200" rx="30" fill="#f0f0f0" stroke="#ddd" stroke-width="1.5" />
+                        <circle cx="200" cy="140" r="70" fill="#000000" />
+                        <path d="M160 140 L220 100 L240 120 L200 160 L160 140Z" fill="#fff" />
+                        <text x="120" y="210" font-family="Inter" font-weight="800" font-size="24" fill="#000000">URBAN</text>
+                        <text x="150" y="240" font-family="Inter" font-weight="400" font-size="14" fill="#666">Coleção essencial</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PRODUTOS ===== -->
+        <section class="products" id="products">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Destaques</h2>
+                    <p class="section-sub">Os mais vendidos da temporada</p>
+                </div>
+                <div class="product-grid" id="productGrid">
+                    <div class="product-card" data-id="1" data-name="Urban Classic" data-price="199" data-color="#e8e8e8" data-dark="#1a1a1a">
+                        <div class="product-image">
+                            <svg viewBox="0 0 120 80" fill="none">
+                                <rect x="10" y="10" width="100" height="60" rx="10" fill="#e8e8e8" />
+                                <circle cx="60" cy="40" r="22" fill="#1a1a1a" />
+                                <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                            </svg>
                         </div>
-                        <span class="product-badge">-18%</span>
-                        <button class="btn-add-cart" data-id="1">Adicionar</button>
-                    </div>
-                </div>
-                <div class="product-card" data-id="2" data-name="Air Force 1" data-price="749" data-color="#f5e6d3" data-dark="#d4a373">
-                    <div class="product-image">
-                        <svg viewBox="0 0 120 80" fill="none">
-                            <rect x="10" y="10" width="100" height="60" rx="10" fill="#f5e6d3" />
-                            <circle cx="60" cy="40" r="22" fill="#d4a373" />
-                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
-                        </svg>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Feminino</span>
-                        <h3>Air Force 1</h3>
-                        <div class="product-price">
-                            <span class="price">R$ 749</span>
-                            <span class="old-price">R$ 849</span>
+                        <div class="product-info">
+                            <span class="product-category">Masculino</span>
+                            <h3>Urban Classic</h3>
+                            <div class="product-price">
+                                <span class="price">R$ 199</span>
+                                <span class="old-price">R$ 249</span>
+                            </div>
+                            <span class="product-badge">-20%</span>
+                            <button class="btn-add-cart" data-id="1">Adicionar</button>
                         </div>
-                        <span class="product-badge badge-new">Novo</span>
-                        <button class="btn-add-cart" data-id="2">Adicionar</button>
                     </div>
-                </div>
-                <div class="product-card" data-id="3" data-name="Court Legacy" data-price="499" data-color="#cfe1f0" data-dark="#2a6f97">
-                    <div class="product-image">
-                        <svg viewBox="0 0 120 80" fill="none">
-                            <rect x="10" y="10" width="100" height="60" rx="10" fill="#cfe1f0" />
-                            <circle cx="60" cy="40" r="22" fill="#2a6f97" />
-                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
-                        </svg>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Infantil</span>
-                        <h3>Court Legacy</h3>
-                        <div class="product-price">
-                            <span class="price">R$ 499</span>
-                            <span class="old-price">R$ 599</span>
+                    <div class="product-card" data-id="2" data-name="Street Style" data-price="179" data-color="#f5e6d3" data-dark="#333">
+                        <div class="product-image">
+                            <svg viewBox="0 0 120 80" fill="none">
+                                <rect x="10" y="10" width="100" height="60" rx="10" fill="#f5e6d3" />
+                                <circle cx="60" cy="40" r="22" fill="#333" />
+                                <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                            </svg>
                         </div>
-                        <button class="btn-add-cart" data-id="3">Adicionar</button>
-                    </div>
-                </div>
-                <div class="product-card" data-id="4" data-name="ZoomX Vaporfly" data-price="1299" data-color="#f0e6d8" data-dark="#b08968">
-                    <div class="product-image">
-                        <svg viewBox="0 0 120 80" fill="none">
-                            <rect x="10" y="10" width="100" height="60" rx="10" fill="#f0e6d8" />
-                            <circle cx="60" cy="40" r="22" fill="#b08968" />
-                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
-                        </svg>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category">Masculino</span>
-                        <h3>ZoomX Vaporfly</h3>
-                        <div class="product-price">
-                            <span class="price">R$ 1.299</span>
+                        <div class="product-info">
+                            <span class="product-category">Feminino</span>
+                            <h3>Street Style</h3>
+                            <div class="product-price">
+                                <span class="price">R$ 179</span>
+                                <span class="old-price">R$ 199</span>
+                            </div>
+                            <span class="product-badge badge-new">Novo</span>
+                            <button class="btn-add-cart" data-id="2">Adicionar</button>
                         </div>
-                        <span class="product-badge badge-launch">Lançamento</span>
-                        <button class="btn-add-cart" data-id="4">Adicionar</button>
+                    </div>
+                    <div class="product-card" data-id="3" data-name="Urban Youth" data-price="149" data-color="#cfe1f0" data-dark="#222">
+                        <div class="product-image">
+                            <svg viewBox="0 0 120 80" fill="none">
+                                <rect x="10" y="10" width="100" height="60" rx="10" fill="#cfe1f0" />
+                                <circle cx="60" cy="40" r="22" fill="#222" />
+                                <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                            </svg>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Infantil</span>
+                            <h3>Urban Youth</h3>
+                            <div class="product-price">
+                                <span class="price">R$ 149</span>
+                                <span class="old-price">R$ 179</span>
+                            </div>
+                            <button class="btn-add-cart" data-id="3">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="product-card" data-id="4" data-name="Premium Edition" data-price="299" data-color="#f0e6d8" data-dark="#444">
+                        <div class="product-image">
+                            <svg viewBox="0 0 120 80" fill="none">
+                                <rect x="10" y="10" width="100" height="60" rx="10" fill="#f0e6d8" />
+                                <circle cx="60" cy="40" r="22" fill="#444" />
+                                <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
+                            </svg>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Premium</span>
+                            <h3>Premium Edition</h3>
+                            <div class="product-price">
+                                <span class="price">R$ 299</span>
+                            </div>
+                            <span class="product-badge badge-launch">Lançamento</span>
+                            <button class="btn-add-cart" data-id="4">Adicionar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ============================================ -->
-    <!-- CARROSSEL                                    -->
-    <!-- ============================================ -->
-    <section class="carousel-section" id="carouselSection">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Lançamentos</h2>
-                <p class="section-sub">Os modelos mais recentes</p>
+        <!-- ===== CARROSSEL ===== -->
+        <section class="carousel-section" id="carouselSection">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Lançamentos</h2>
+                    <p class="section-sub">Os modelos mais recentes</p>
+                </div>
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack"></div>
+                </div>
+                <div class="carousel-controls">
+                    <button id="prevBtn" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
+                    <button id="nextBtn" aria-label="Próximo"><i class="fas fa-chevron-right"></i></button>
+                </div>
             </div>
-            <div class="carousel-wrapper">
-                <div class="carousel-track" id="carouselTrack"></div>
-            </div>
-            <div class="carousel-controls">
-                <button id="prevBtn" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
-                <button id="nextBtn" aria-label="Próximo"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ============================================ -->
-    <!-- SOBRE                                        -->
-    <!-- ============================================ -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Por que escolher a Nike</h2>
-                <p class="section-sub">Inovação, performance e estilo</p>
+        <!-- ===== SOBRE ===== -->
+        <section class="about" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Por que escolher a UrbanShop</h2>
+                    <p class="section-sub">Estilo, qualidade e autenticidade</p>
+                </div>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="about-icon"><i class="fas fa-city"></i></div>
+                        <h3>Estilo Urbano</h3>
+                        <p>Design moderno inspirado nas grandes metrópoles.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon"><i class="fas fa-recycle"></i></div>
+                        <h3>Sustentabilidade</h3>
+                        <p>Materiais eco-friendly e produção consciente.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Qualidade</h3>
+                        <p>Produtos duráveis com acabamento premium.</p>
+                    </div>
+                </div>
             </div>
-            <div class="about-grid">
-                <div class="about-card">
-                    <div class="about-icon"><i class="fas fa-running"></i></div>
-                    <h3>Performance</h3>
-                    <p>Tecnologia de ponta para atletas de todos os níveis.</p>
-                </div>
-                <div class="about-card">
-                    <div class="about-icon"><i class="fas fa-leaf"></i></div>
-                    <h3>Sustentabilidade</h3>
-                    <p>Materiais reciclados e produção responsável.</p>
-                </div>
-                <div class="about-card">
-                    <div class="about-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Durabilidade</h3>
-                    <p>Produtos feitos para durar e acompanhar seu ritmo.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ============================================ -->
-    <!-- NEWSLETTER                                   -->
-    <!-- ============================================ -->
-    <section class="newsletter">
-        <div class="container newsletter-inner">
-            <div class="newsletter-text">
-                <h2>Fique por dentro dos lançamentos</h2>
-                <p>Cadastre seu e-mail e receba ofertas exclusivas antes de todo mundo.</p>
-            </div>
-            <form class="newsletter-form" id="newsletterForm">
-                <input type="email" placeholder="Seu melhor e-mail" required />
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-paper-plane"></i> Inscrever
-                </button>
-            </form>
-        </div>
-    </section>
+    </main>
 
-    <!-- ============================================ -->
-    <!-- FOOTER                                       -->
-    <!-- ============================================ -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h4>Produtos</h4>
-                    <a href="#products"><i class="fas fa-shoe-prints"></i> Tênis</a>
-                    <a href="#products"><i class="fas fa-tshirt"></i> Roupas</a>
-                    <a href="#products"><i class="fas fa-cog"></i> Acessórios</a>
-                    <a href="#products"><i class="fas fa-tags"></i> Ofertas</a>
-                </div>
-                <div>
-                    <h4>Atendimento</h4>
-                    <a href="html/perfil.html"><i class="fas fa-user"></i> Minha Conta</a>
-                    <a href="html/perfil.html"><i class="fas fa-box"></i> Pedidos</a>
-                    <a href="html/perfil.html"><i class="fas fa-undo"></i> Trocas</a>
-                    <a href="#"><i class="fas fa-headset"></i> Ajuda</a>
-                </div>
-                <div>
-                    <h4>Sobre</h4>
-                    <a href="#"><i class="fas fa-info-circle"></i> Sobre a Nike</a>
-                    <a href="#"><i class="fas fa-briefcase"></i> Carreiras</a>
-                    <a href="#"><i class="fas fa-newspaper"></i> Imprensa</a>
-                    <a href="#"><i class="fas fa-globe"></i> Sustentabilidade</a>
-                </div>
-                <div>
-                    <h4>Redes</h4>
-                    <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
-                    <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
-                    <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
-                </div>
+    <!-- ===== FOOTER PRETO ===== -->
+<footer class="footer bg-black text-white/40">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Produtos</h4>
+                <a href="#products" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-shoe-prints text-white/20 w-5"></i> Calçados</a>
+                <a href="#products" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-tshirt text-white/20 w-5"></i> Roupas</a>
+                <a href="#products" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-cog text-white/20 w-5"></i> Acessórios</a>
+                <a href="#products" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors"><i class="fas fa-tags text-white/20 w-5"></i> Ofertas</a>
             </div>
-            <div class="footer-bottom">
-                &copy; 2026 Nike Studio — Design Premium. Todos os direitos reservados.
+            <div>
+                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Atendimento</h4>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-user text-white/20 w-5"></i> Minha Conta</a>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-box text-white/20 w-5"></i> Pedidos</a>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-undo text-white/20 w-5"></i> Trocas</a>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors"><i class="fas fa-headset text-white/20 w-5"></i> Ajuda</a>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Sobre</h4>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-info-circle text-white/20 w-5"></i> Sobre a UrbanShop</a>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-briefcase text-white/20 w-5"></i> Carreiras</a>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-newspaper text-white/20 w-5"></i> Imprensa</a>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors"><i class="fas fa-globe text-white/20 w-5"></i> Sustentabilidade</a>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Redes</h4>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fab fa-instagram text-white/20 w-5"></i> Instagram</a>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fab fa-youtube text-white/20 w-5"></i> YouTube</a>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fab fa-twitter text-white/20 w-5"></i> Twitter</a>
+                <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors"><i class="fab fa-facebook text-white/20 w-5"></i> Facebook</a>
             </div>
         </div>
-    </footer>
+        
+        <!-- ===== BOTÃO GITHUB COM LINK ===== -->
+        <section class="flex justify-center items-center py-8">
+            <a href="https://github.com/FelipeFreitasRossi/Nike.com" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="group flex justify-center p-2 rounded-md drop-shadow-xl bg-gradient-to-r from-gray-800 to-black text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 15 15" class="w-5">
+                    <path clip-rule="evenodd" fill-rule="evenodd" fill="currentColor" d="M7.49933 0.25C3.49635 0.25 0.25 3.49593 0.25 7.50024C0.25 10.703 2.32715 13.4206 5.2081 14.3797C5.57084 14.446 5.70302 14.2222 5.70302 14.0299C5.70302 13.8576 5.69679 13.4019 5.69323 12.797C3.67661 13.235 3.25112 11.825 3.25112 11.825C2.92132 10.9874 2.44599 10.7644 2.44599 10.7644C1.78773 10.3149 2.49584 10.3238 2.49584 10.3238C3.22353 10.375 3.60629 11.0711 3.60629 11.0711C4.25298 12.1788 5.30335 11.8588 5.71638 11.6732C5.78225 11.205 5.96962 10.8854 6.17658 10.7043C4.56675 10.5209 2.87415 9.89918 2.87415 7.12104C2.87415 6.32925 3.15677 5.68257 3.62053 5.17563C3.54576 4.99226 3.29697 4.25521 3.69174 3.25691C3.69174 3.25691 4.30015 3.06196 5.68522 3.99973C6.26337 3.83906 6.8838 3.75895 7.50022 3.75583C8.1162 3.75895 8.73619 3.83906 9.31523 3.99973C10.6994 3.06196 11.3069 3.25691 11.3069 3.25691C11.7026 4.25521 11.4538 4.99226 11.3795 5.17563C11.8441 5.68257 12.1245 6.32925 12.1245 7.12104C12.1245 9.9063 10.4292 10.5192 8.81452 10.6985C9.07444 10.9224 9.30633 11.3648 9.30633 12.0413C9.30633 13.0102 9.29742 13.7922 9.29742 14.0299C9.29742 14.2239 9.42828 14.4496 9.79591 14.3788C12.6746 13.4179 14.75 10.7025 14.75 7.50024C14.75 3.49593 11.5036 0.25 7.49933 0.25Z"></path>
+                </svg>
+                <span class="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">GitHub</span>
+            </a>
+        </section>
 
-    <!-- ============================================ -->
-    <!-- TOAST                                        -->
-    <!-- ============================================ -->
+        <div class="footer-bottom border-t border-white/5 pt-6 text-center text-white/20 text-xs">
+            &copy; 2026 UrbanShop — Estilo Urbano. Todos os direitos reservados.
+        </div>
+    </div>
+</footer>
+
+    <!-- ===== TOAST ===== -->
     <div class="toast" id="globalToast"></div>
 
-    <!-- ============================================ -->
-    <!-- SCRIPTS                                      -->
-    <!-- ============================================ -->
+    <!-- ===== SCRIPTS ===== -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/search.js"></script>
     <script src="js/script.js"></script>
     <script src="js/carrinho.js"></script>
 </body>
