@@ -3,182 +3,221 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carrinho - Nike Studio</title>
-    <!-- Google Fonts -->
+    <title>Carrinho - UrbanShop</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <!-- CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/carrinho.css" />
+    <style>
+        .cart-page { padding: 50px 0 60px; background: #ffffff; min-height: 70vh; }
+        .cart-page-header { text-align: center; margin-bottom: 40px; }
+        .cart-page-header h1 { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; color: #000000; }
+        .cart-page-header h1 i { color: #000000; margin-right: 12px; }
+        .cart-page-sub { color: #666; font-size: 1.05rem; margin-top: 4px; }
+        .cart-page-content { display: grid; grid-template-columns: 1fr 340px; gap: 40px; align-items: start; }
+        .cart-items-list { background: #ffffff; border-radius: 28px; padding: 28px; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); border: 1px solid #f0f0f0; }
+        .cart-empty-state { text-align: center; padding: 60px 20px; }
+        .cart-empty-state i { font-size: 4rem; color: #ddd; margin-bottom: 16px; }
+        .cart-empty-state h2 { font-size: 1.3rem; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+        .cart-empty-state p { color: #666; margin-bottom: 24px; }
+        .cart-item-card { display: flex; align-items: center; gap: 20px; padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
+        .cart-item-card:last-child { border-bottom: none; }
+        .cart-item-card-image { width: 72px; height: 72px; background: #f5f5f5; border-radius: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+        .cart-item-card-info { flex: 1; min-width: 0; }
+        .cart-item-card-info h3 { font-weight: 700; font-size: 1rem; color: #000000; margin-bottom: 2px; }
+        .cart-item-card-category { font-size: 0.7rem; text-transform: uppercase; color: #999; letter-spacing: 0.5px; font-weight: 600; }
+        .cart-item-card-price { font-weight: 700; font-size: 1rem; color: #000000; margin-top: 4px; }
+        .cart-item-card-actions { display: flex; align-items: center; gap: 12px; }
+        .cart-item-qty { display: flex; align-items: center; gap: 6px; background: #f5f5f5; border-radius: 40px; padding: 2px 8px; }
+        .cart-item-qty button { background: none; border: none; width: 30px; height: 30px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; color: #666; font-weight: 700; }
+        .cart-item-qty button:hover { background: #ffffff; color: #000000; }
+        .cart-item-qty span { font-weight: 700; font-size: 0.95rem; min-width: 24px; text-align: center; }
+        .cart-item-remove-btn { background: none; border: none; color: #ccc; font-size: 1rem; cursor: pointer; padding: 8px 10px; border-radius: 8px; }
+        .cart-item-remove-btn:hover { color: #ff3b30; background: rgba(255, 59, 48, 0.08); }
+        .cart-summary { background: #ffffff; border-radius: 28px; padding: 28px 24px; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04); border: 1px solid #f0f0f0; position: sticky; top: 100px; }
+        .cart-summary h3 { font-weight: 800; font-size: 1rem; text-transform: uppercase; color: #000000; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #f0f0f0; }
+        .summary-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.95rem; color: #666; }
+        .summary-row.total { font-weight: 800; font-size: 1.1rem; color: #000000; }
+        .summary-row.total span:last-child { font-size: 1.3rem; color: #000000; }
+        .summary-divider { height: 1px; background: #f0f0f0; margin: 12px 0; }
+        .btn-checkout { width: 100%; padding: 16px; border-radius: 60px; margin-top: 8px; background: #000000; color: #ffffff; border: none; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+        .btn-checkout:hover { background: #1a1a1a; transform: scale(1.02); }
+        .btn-continue { width: 100%; padding: 12px; border-radius: 60px; margin-top: 10px; background: transparent; color: #666; border: 2px solid #e0e0e0; font-weight: 600; text-align: center; display: block; }
+        .btn-continue:hover { background: #f5f5f5; border-color: #000; color: #000; }
+        @media (max-width: 820px) { .cart-page-content { grid-template-columns: 1fr; gap: 28px; } .cart-summary { position: static; } }
+        @media (max-width: 520px) { .cart-item-card { flex-direction: column; align-items: flex-start; } .cart-item-card-actions { width: 100%; justify-content: space-between; } }
+    </style>
 </head>
 <body>
 
-    <!-- ============================================ -->
-    <!-- PRELOADER                                    -->
-    <!-- ============================================ -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-content">
-            <div class="preloader-logo">
-                <img
-                    src="https://i.postimg.cc/HsynzXQj/Nike-(1).jpg"
-                    alt="Nike Logo"
-                    class="preloader-logo-img"
-                />
-            </div>
-            <div class="preloader-swoosh">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <p class="preloader-text">Carregando carrinho</p>
-        </div>
-    </div>
+    <!-- ===== HEADER ===== -->
+    <header class="header-premium" id="headerPremium">
+        <div class="container header-premium-inner">
+            <a href="../dashboard.html" class="logo-premium">
+                <svg viewBox="0 0 140 35" class="logo-premium-svg" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="8" width="9" height="22" rx="2" fill="#ffffff" />
+                    <rect x="20" y="3" width="9" height="27" rx="2" fill="#ffffff" />
+                    <rect x="34" y="13" width="9" height="17" rx="2" fill="#ffffff" />
+                    <rect x="48" y="6" width="9" height="24" rx="2" fill="#ffffff" />
+                    <rect x="62" y="16" width="9" height="14" rx="2" fill="#ffffff" />
+                    <text x="80" y="22" font-family="Inter, sans-serif" font-weight="900" font-size="16" fill="#ffffff" letter-spacing="1.5">URBAN</text>
+                    <text x="80" y="33" font-family="Inter, sans-serif" font-weight="700" font-size="9" fill="#888888" letter-spacing="2.5">SHOP</text>
+                </svg>
+                <span class="logo-premium-badge">PREMIUM</span>
+            </a>
 
-    <!-- ============================================ -->
-    <!-- CONTEÚDO PRINCIPAL                          -->
-    <!-- ============================================ -->
-    <div class="site-wrapper" id="siteWrapper">
+            <nav class="nav-premium">
+                <a href="../dashboard.html#products" class="nav-premium-link">Novidades</a>
+                <a href="../dashboard.html#products" class="nav-premium-link">Masculino</a>
+                <a href="../dashboard.html#products" class="nav-premium-link">Feminino</a>
+                <a href="../dashboard.html#products" class="nav-premium-link">Infantil</a>
+                <a href="../dashboard.html#products" class="nav-premium-link">Ofertas</a>
+            </nav>
 
-        <!-- ===== HEADER ===== -->
-        <header class="header" id="header">
-            <div class="container header-inner">
-                <a href="../dashboard.html" class="logo">
-                    <img
-                        src="https://i.postimg.cc/8c6HT4YC/Nike.png"
-                        alt="Nike Logo"
-                        class="logo-img"
-                    />
+            <div class="header-actions-premium">
+                <button class="action-btn-premium search-btn" aria-label="Buscar">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="action-btn-premium profile-btn" aria-label="Perfil">
+                    <i class="fas fa-user"></i>
+                </button>
+                <a href="carrinho.html" class="action-btn-premium cart-btn" aria-label="Carrinho">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="action-badge cart-badge" id="cartBadge">0</span>
                 </a>
-
-                <nav class="nav-desktop">
-                    <a href="../dashboard.html#carouselSection">Novidades</a>
-                    <a href="../dashboard.html#products">Masculino</a>
-                    <a href="../dashboard.html#products">Feminino</a>
-                    <a href="../dashboard.html#products">Infantil</a>
-                    <a href="../dashboard.html#products">Ofertas</a>
-                </nav>
-
-                <div class="header-actions">
-                    <button class="icon-btn" aria-label="Buscar"><i class="fas fa-search"></i></button>
-                    <a href="perfil.html" class="icon-btn" aria-label="Perfil"><i class="fas fa-user"></i></a>
-                    <a href="carrinho.html" class="icon-btn cart-toggle active-tool" aria-label="Carrinho">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="cart-badge" id="cartBadge">0</span>
-                    </a>
-                    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <div class="hamburger-premium-wrapper">
+                    <label class="burger-premium" for="burger">
+                        <input type="checkbox" id="burger">
                         <span></span><span></span><span></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-menu-premium" id="mobileMenu">
+            <div class="mobile-menu-premium-inner">
+                <div class="mobile-user">
+                    <div class="mobile-user-avatar"><i class="fas fa-user"></i></div>
+                    <div class="mobile-user-info">
+                        <h4>Olá, Visitante</h4>
+                        <span>Bem-vindo à UrbanShop</span>
+                    </div>
+                </div>
+                <nav class="mobile-nav-premium">
+                    <a href="../dashboard.html#products" class="mobile-nav-premium-link"><i class="fas fa-compass"></i> Novidades</a>
+                    <a href="../dashboard.html#products" class="mobile-nav-premium-link"><i class="fas fa-male"></i> Masculino</a>
+                    <a href="../dashboard.html#products" class="mobile-nav-premium-link"><i class="fas fa-female"></i> Feminino</a>
+                    <a href="../dashboard.html#products" class="mobile-nav-premium-link"><i class="fas fa-child"></i> Infantil</a>
+                    <a href="../dashboard.html#products" class="mobile-nav-premium-link"><i class="fas fa-tags"></i> Ofertas</a>
+                    <a href="carrinho.html" class="mobile-nav-premium-link highlight"><i class="fas fa-shopping-bag"></i> Meu Carrinho</a>
+                </nav>
+                <div class="mobile-premium-footer">
+                    <div class="mobile-premium-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                    <p>&copy; 2026 UrbanShop</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== PÁGINA DO CARRINHO ===== -->
+    <section class="cart-page" id="cartPage">
+        <div class="container">
+            <div class="cart-page-header">
+                <h1><i class="fas fa-shopping-bag"></i> Meu Carrinho</h1>
+                <p class="cart-page-sub">Revise seus itens antes de finalizar a compra</p>
+            </div>
+
+            <div class="cart-page-content">
+                <div class="cart-items-list" id="cartItemsList"></div>
+
+                <div class="cart-summary" id="cartSummary">
+                    <h3>Resumo do pedido</h3>
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="summarySubtotal">R$ 0,00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Frete</span>
+                        <span id="summaryShipping">Grátis</span>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="summaryTotal">R$ 0,00</span>
+                    </div>
+                    <button class="btn btn-primary btn-checkout" id="checkoutBtn">
+                        <i class="fas fa-credit-card"></i> Finalizar Compra
                     </button>
+                    <a href="../dashboard.html#products" class="btn btn-secondary btn-continue">
+                        <i class="fas fa-arrow-left"></i> Continuar comprando
+                    </a>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="nav-mobile" id="navMobile">
-                <a href="../dashboard.html#carouselSection"><i class="fas fa-arrow-right"></i> Novidades</a>
-                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Masculino</a>
-                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Feminino</a>
-                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Infantil</a>
-                <a href="../dashboard.html#products"><i class="fas fa-arrow-right"></i> Ofertas</a>
-                <a href="perfil.html"><i class="fas fa-arrow-right"></i> Meu Perfil</a>
-                <a href="carrinho.html"><i class="fas fa-arrow-right"></i> Meu Carrinho</a>
-            </div>
-        </header>
-
-        <!-- ===== PÁGINA DO CARRINHO ===== -->
-        <section class="cart-page" id="cartPage">
-            <div class="container">
-                <div class="cart-page-header">
-                    <div class="breadcrumb">
-                        <a href="../dashboard.html">Início</a>
-                        <i class="fas fa-chevron-right"></i>
-                        <span class="current">Carrinho</span>
-                    </div>
-                    <h1><i class="fas fa-shopping-bag"></i> Meu Carrinho</h1>
-                    <p class="cart-page-sub">Revise seus itens antes de finalizar a compra</p>
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer bg-black text-white/40">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Produtos</h4>
+                    <a href="../dashboard.html#products" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-shoe-prints text-white/20 w-5"></i> Calçados</a>
+                    <a href="../dashboard.html#products" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-tshirt text-white/20 w-5"></i> Roupas</a>
+                    <a href="../dashboard.html#products" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-cog text-white/20 w-5"></i> Acessórios</a>
+                    <a href="../dashboard.html#products" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors"><i class="fas fa-tags text-white/20 w-5"></i> Ofertas</a>
                 </div>
-
-                <div class="cart-page-content">
-                    <div class="cart-items-list" id="cartItemsList">
-                        <!-- Renderizado via JS -->
-                    </div>
-
-                    <div class="cart-summary" id="cartSummary">
-                        <h3>Resumo do pedido</h3>
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <span id="summarySubtotal">R$ 0,00</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Frete</span>
-                            <span id="summaryShipping">Grátis</span>
-                        </div>
-                        <div class="summary-divider"></div>
-                        <div class="summary-row total">
-                            <span>Total</span>
-                            <span id="summaryTotal">R$ 0,00</span>
-                        </div>
-                        <button class="btn btn-primary btn-checkout" id="checkoutBtn">
-                            <i class="fas fa-credit-card"></i> Finalizar Compra
-                        </button>
-                        <a href="../dashboard.html#products" class="btn btn-secondary btn-continue">
-                            <i class="fas fa-arrow-left"></i> Continuar comprando
-                        </a>
-                    </div>
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Atendimento</h4>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-user text-white/20 w-5"></i> Minha Conta</a>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-box text-white/20 w-5"></i> Pedidos</a>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-undo text-white/20 w-5"></i> Trocas</a>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors"><i class="fas fa-headset text-white/20 w-5"></i> Ajuda</a>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Sobre</h4>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-info-circle text-white/20 w-5"></i> Sobre a UrbanShop</a>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-briefcase text-white/20 w-5"></i> Carreiras</a>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fas fa-newspaper text-white/20 w-5"></i> Imprensa</a>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors"><i class="fas fa-globe text-white/20 w-5"></i> Sustentabilidade</a>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Redes</h4>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fab fa-instagram text-white/20 w-5"></i> Instagram</a>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fab fa-youtube text-white/20 w-5"></i> YouTube</a>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors mb-2"><i class="fab fa-twitter text-white/20 w-5"></i> Twitter</a>
+                    <a href="#" class="flex items-center gap-3 text-white/40 hover:text-white transition-colors"><i class="fab fa-facebook text-white/20 w-5"></i> Facebook</a>
                 </div>
             </div>
-        </section>
+            
+            <section class="flex justify-center items-center py-8">
+                <a href="https://github.com/FelipeFreitasRossi/Nike.com" target="_blank" rel="noopener noreferrer" class="group flex justify-center p-2 rounded-md drop-shadow-xl bg-gradient-to-r from-gray-800 to-black text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 15 15" class="w-5">
+                        <path clip-rule="evenodd" fill-rule="evenodd" fill="currentColor" d="M7.49933 0.25C3.49635 0.25 0.25 3.49593 0.25 7.50024C0.25 10.703 2.32715 13.4206 5.2081 14.3797C5.57084 14.446 5.70302 14.2222 5.70302 14.0299C5.70302 13.8576 5.69679 13.4019 5.69323 12.797C3.67661 13.235 3.25112 11.825 3.25112 11.825C2.92132 10.9874 2.44599 10.7644 2.44599 10.7644C1.78773 10.3149 2.49584 10.3238 2.49584 10.3238C3.22353 10.375 3.60629 11.0711 3.60629 11.0711C4.25298 12.1788 5.30335 11.8588 5.71638 11.6732C5.78225 11.205 5.96962 10.8854 6.17658 10.7043C4.56675 10.5209 2.87415 9.89918 2.87415 7.12104C2.87415 6.32925 3.15677 5.68257 3.62053 5.17563C3.54576 4.99226 3.29697 4.25521 3.69174 3.25691C3.69174 3.25691 4.30015 3.06196 5.68522 3.99973C6.26337 3.83906 6.8838 3.75895 7.50022 3.75583C8.1162 3.75895 8.73619 3.83906 9.31523 3.99973C10.6994 3.06196 11.3069 3.25691 11.3069 3.25691C11.7026 4.25521 11.4538 4.99226 11.3795 5.17563C11.8441 5.68257 12.1245 6.32925 12.1245 7.12104C12.1245 9.9063 10.4292 10.5192 8.81452 10.6985C9.07444 10.9224 9.30633 11.3648 9.30633 12.0413C9.30633 13.0102 9.29742 13.7922 9.29742 14.0299C9.29742 14.2239 9.42828 14.4496 9.79591 14.3788C12.6746 13.4179 14.75 10.7025 14.75 7.50024C14.75 3.49593 11.5036 0.25 7.49933 0.25Z"></path>
+                    </svg>
+                    <span class="absolute opacity-0 group-hover:opacity-100 group-hover:text-gray-700 group-hover:text-sm group-hover:-translate-y-10 duration-700">GitHub</span>
+                </a>
+            </section>
 
-        <!-- ===== FOOTER ===== -->
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-grid">
-                    <div>
-                        <h4>Produtos</h4>
-                        <a href="../dashboard.html#products"><i class="fas fa-shoe-prints"></i> Tênis</a>
-                        <a href="../dashboard.html#products"><i class="fas fa-tshirt"></i> Roupas</a>
-                        <a href="../dashboard.html#products"><i class="fas fa-cog"></i> Acessórios</a>
-                        <a href="../dashboard.html#products"><i class="fas fa-tags"></i> Ofertas</a>
-                    </div>
-                    <div>
-                        <h4>Atendimento</h4>
-                        <a href="perfil.html"><i class="fas fa-user"></i> Minha Conta</a>
-                        <a href="perfil.html"><i class="fas fa-box"></i> Pedidos</a>
-                        <a href="perfil.html"><i class="fas fa-undo"></i> Trocas</a>
-                        <a href="#"><i class="fas fa-headset"></i> Ajuda</a>
-                    </div>
-                    <div>
-                        <h4>Sobre</h4>
-                        <a href="#"><i class="fas fa-info-circle"></i> Sobre a Nike</a>
-                        <a href="#"><i class="fas fa-briefcase"></i> Carreiras</a>
-                        <a href="#"><i class="fas fa-newspaper"></i> Imprensa</a>
-                        <a href="#"><i class="fas fa-globe"></i> Sustentabilidade</a>
-                    </div>
-                    <div>
-                        <h4>Redes</h4>
-                        <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                        <a href="#"><i class="fab fa-youtube"></i> YouTube</a>
-                        <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
-                        <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    &copy; 2026 Nike Studio — Design Premium. Todos os direitos reservados.
-                </div>
+            <div class="footer-bottom border-t border-white/5 pt-6 text-center text-white/20 text-xs">
+                &copy; 2026 UrbanShop — Estilo Urbano. Todos os direitos reservados.
             </div>
-        </footer>
+        </div>
+    </footer>
 
-        <!-- ===== TOAST ===== -->
-        <div class="toast" id="cartToast"></div>
+    <div class="toast" id="globalToast"></div>
 
-    </div> <!-- fim .site-wrapper -->
-
-    <!-- ============================================ -->
-    <!-- SCRIPTS                                      -->
-    <!-- ============================================ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="../js/search.js"></script>
     <script src="../js/script.js"></script>
     <script src="../js/carrinho.js"></script>
 </body>

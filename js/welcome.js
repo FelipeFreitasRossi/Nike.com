@@ -1,9 +1,6 @@
 (function() {
     'use strict';
 
-    // ============================================
-    // PRELOADER (0.8s)
-    // ============================================
     const preloader = document.getElementById('preloader');
 
     function hidePreloader() {
@@ -25,73 +22,19 @@
         }
     }
 
-    // ============================================
-    // ANIMAÇÕES GSAP
-    // ============================================
     function animateWelcome() {
         if (typeof gsap === 'undefined') return;
         
         const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-        // Logo
-        tl.from('.welcome-logo', {
-            opacity: 0,
-            y: -30,
-            duration: 0.8
-        })
-        // Título
-        .from('.welcome-title', {
-            opacity: 0,
-            y: 40,
-            duration: 0.9
-        }, '-=0.4')
-        // Subtítulo
-        .from('.welcome-subtitle', {
-            opacity: 0,
-            y: 20,
-            duration: 0.6
-        }, '-=0.3')
-        // Mensagem
-        .from('.welcome-message p', {
-            opacity: 0,
-            y: 20,
-            duration: 0.6,
-            stagger: 0.15
-        }, '-=0.3')
-        // Botão
-        .from('.btn-enter', {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.7,
-            ease: 'back.out(2.5)'
-        }, '-=0.2')
-        // Scroll indicator
-        .from('.scroll-indicator', {
-            opacity: 0,
-            y: 10,
-            duration: 0.5
-        }, '-=0.1');
-
-        // Animação do header (entrada)
-        gsap.from('.welcome-header', {
-            opacity: 0,
-            y: -20,
-            duration: 0.6,
-            delay: 0.2
-        });
-
-        // Animação do footer
-        gsap.from('.welcome-footer', {
-            opacity: 0,
-            y: 20,
-            duration: 0.6,
-            delay: 0.4
-        });
+        tl.from('.welcome-logo', { opacity: 0, y: -30, duration: 0.8 })
+          .from('.welcome-title', { opacity: 0, y: 30, duration: 0.8 }, '-=0.4')
+          .from('.welcome-subtitle', { opacity: 0, y: 20, duration: 0.6 }, '-=0.3')
+          .from('.welcome-message p', { opacity: 0, y: 20, duration: 0.6, stagger: 0.15 }, '-=0.3')
+          .from('.btn-welcome', { opacity: 0, scale: 0.9, duration: 0.6, ease: 'back.out(2)' }, '-=0.2')
+          .from('.scroll-indicator', { opacity: 0, y: 10, duration: 0.5 }, '-=0.2');
     }
 
-    // ============================================
-    // INICIAR
-    // ============================================
+    // Preloader com duração de 0.8 segundos
     setTimeout(() => {
         hidePreloader();
     }, 800);
@@ -103,6 +46,6 @@
         }
     }, 1500);
 
-    console.log('✅ UrbanShop B&W - Boas-vindas carregada!');
+    console.log('✅ UrbanShop - Boas-vindas carregada!');
 
 })();

@@ -2,188 +2,180 @@
     'use strict';
 
     // ============================================
-    // CATÁLOGO (usado pela busca em todas as páginas)
+    // CONFIGURAÇÃO
     // ============================================
-    const PRODUCTS = [
-        { id: 1, name: 'Air Max 270', category: 'Masculino', price: 899, oldPrice: 1099, color: '#e8e8e8', dark: '#0a0a0a' },
-        { id: 2, name: 'Air Force 1', category: 'Feminino', price: 749, oldPrice: 849, color: '#f5e6d3', dark: '#d4a373' },
-        { id: 3, name: 'Court Legacy', category: 'Infantil', price: 499, oldPrice: 599, color: '#cfe1f0', dark: '#2a6f97' },
-        { id: 4, name: 'ZoomX Vaporfly', category: 'Masculino', price: 1299, oldPrice: null, color: '#f0e6d8', dark: '#b08968' },
-        { id: 5, name: 'Air Max Pulse', category: 'Lançamento', price: 999, oldPrice: null, color: '#f5e6d3', dark: '#333' },
-        { id: 6, name: 'Dunk Low Retro', category: 'Feminino', price: 849, oldPrice: null, color: '#cfe1f0', dark: '#333' },
-        { id: 7, name: 'Vaporfly 3', category: 'Masculino', price: 1499, oldPrice: null, color: '#f0e6d8', dark: '#333' },
-        { id: 8, name: 'Air Zoom Tempo', category: 'Masculino', price: 1199, oldPrice: null, color: '#e0d5c0', dark: '#333' },
-        { id: 9, name: 'Court Vision', category: 'Infantil', price: 599, oldPrice: null, color: '#d4c9b8', dark: '#333' },
-        { id: 10, name: 'Air Max 90', category: 'Ofertas', price: 729, oldPrice: 899, color: '#d4e0e8', dark: '#333' }
+    const searchInput = document.querySelector('.cir-search__field');
+    const searchResults = document.getElementById('searchResults');
+    const searchResultsList = document.getElementById('searchResultsList');
+    const searchCount = document.getElementById('searchCount');
+    const searchClose = document.getElementById('searchClose');
+    const searchOverlay = document.createElement('div');
+    searchOverlay.className = 'search-overlay';
+    searchOverlay.id = 'searchOverlay';
+    document.body.appendChild(searchOverlay);
+
+    // ============================================
+    // DADOS DOS PRODUTOS (ATUALIZADO)
+    // ============================================
+    const products = [
+        { id: 1, name: 'Urban Signature', category: 'Premium', price: 349, image: 'https://i.postimg.cc/fT7vDXWg/Gemini-Generated-Image-tiheq4tiheq4tihe.jpg' },
+        { id: 2, name: 'Metro Runner', category: 'Corrida', price: 399, image: 'https://i.postimg.cc/d0NBgYQY/Gemini-Generated-Image-sxbvzzsxbvzzsxbv.jpg' },
+        { id: 3, name: 'Urban Classic', category: 'Masculino', price: 199, image: 'https://i.postimg.cc/jdRRLQcj/images.jpg' },
+        { id: 4, name: 'Street Style', category: 'Feminino', price: 179, image: 'https://i.postimg.cc/k5Ln40Y3/images-(2).jpg' },
+        { id: 5, name: 'Urban Youth', category: 'Infantil', price: 149, image: 'https://i.postimg.cc/vm4YGYzc/images-(3).jpg' },
+        { id: 6, name: 'Premium Edition', category: 'Premium', price: 299, image: 'https://i.postimg.cc/VkGsyrjL/images-(4).jpg' },
+        { id: 7, name: 'Air Max Pulse', category: 'Masculino', price: 999, image: 'https://i.postimg.cc/HksWP484/images-(5).jpg' },
+        { id: 8, name: 'Dunk Low Retro', category: 'Feminino', price: 849, image: 'https://i.postimg.cc/59LtHtMs/images-(6).jpg' },
+        { id: 9, name: 'Vaporfly 3', category: 'Corrida', price: 1499, image: 'https://i.postimg.cc/cJzJ3gHY/images-(7).jpg' },
+        { id: 10, name: 'Urban Street', category: 'Masculino', price: 159, image: 'https://i.postimg.cc/76bxYxn7/images-(8).jpg' },
+        { id: 11, name: 'Court Vision', category: 'Feminino', price: 599, image: 'https://i.postimg.cc/0jM2Z8zV/images-(9).jpg' },
     ];
 
-    window.NIKE_PRODUCTS = PRODUCTS;
+    // ============================================
+    // FUNÇÕES
+    // ============================================
+    function searchProducts(query) {
+        if (!query || query.trim() === '') return [];
+        const term = query.toLowerCase().trim();
+        return products.filter(p => 
+            p.name.toLowerCase().includes(term) ||
+            p.category.toLowerCase().includes(term) ||
+            p.price.toString().includes(term)
+        );
+    }
 
     function formatPrice(value) {
-        return 'R$ ' + value.toFixed(2).replace('.', ',').replace(/\,00$/, '');
+        return 'R$ ' + value.toFixed(2).replace('.', ',');
     }
 
-    // ============================================
-    // DETECTA A PROFUNDIDADE DA PÁGINA ATUAL
-    // ============================================
-    function dashboardPath() {
-        return window.location.pathname.includes('/html/') ? '../dashboard.html' : 'dashboard.html';
+    function highlightMatch(text, query) {
+        if (!query || query.trim() === '') return text;
+        const regex = new RegExp(`(${query.trim()})`, 'gi');
+        return text.replace(regex, '<mark style="background:#000;color:#fff;padding:0 4px;border-radius:4px;">$1</mark>');
     }
 
-    // ============================================
-    // INJETA O OVERLAY DE BUSCA NO DOM
-    // ============================================
-    function buildOverlay() {
-        if (document.getElementById('searchOverlay')) return;
+    function renderResults(results) {
+        searchResultsList.innerHTML = '';
 
-        const overlay = document.createElement('div');
-        overlay.className = 'search-overlay';
-        overlay.id = 'searchOverlay';
-        overlay.innerHTML = `
-            <div class="search-panel">
-                <div class="search-field">
+        if (results.length === 0) {
+            searchResultsList.innerHTML = `
+                <div class="search-result-empty">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Buscar tênis, categorias..." autocomplete="off" />
-                    <button class="search-close" id="searchClose" aria-label="Fechar busca"><i class="fas fa-times"></i></button>
-                </div>
-                <div class="search-quick-tags" id="searchQuickTags"></div>
-                <div class="search-body" id="searchBody"></div>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-
-        const tags = ['Masculino', 'Feminino', 'Infantil', 'Lançamento', 'Ofertas'];
-        const tagsWrap = overlay.querySelector('#searchQuickTags');
-        tags.forEach(tag => {
-            const btn = document.createElement('button');
-            btn.textContent = tag;
-            btn.addEventListener('click', () => {
-                document.getElementById('searchInput').value = tag;
-                renderResults(tag);
-            });
-            tagsWrap.appendChild(btn);
-        });
-
-        return overlay;
-    }
-
-    function renderResults(query) {
-        const body = document.getElementById('searchBody');
-        if (!body) return;
-        const term = query.trim().toLowerCase();
-
-        if (!term) {
-            body.innerHTML = `<div class="search-hint">Sugestões</div>`;
-            const frag = document.createElement('div');
-            PRODUCTS.slice(0, 4).forEach(p => frag.appendChild(resultRow(p)));
-            body.appendChild(frag);
-            return;
-        }
-
-        const matches = PRODUCTS.filter(p =>
-            p.name.toLowerCase().includes(term) || p.category.toLowerCase().includes(term)
-        );
-
-        if (matches.length === 0) {
-            body.innerHTML = `
-                <div class="search-empty">
-                    <i class="fas fa-search"></i>
-                    Nenhum produto encontrado para "<strong>${query}</strong>"
+                    <p>Nenhum produto encontrado</p>
+                    <span class="hint">Tente buscar por nome, categoria ou preço</span>
                 </div>
             `;
+            searchCount.textContent = '0 resultados';
             return;
         }
 
-        body.innerHTML = `<div class="search-hint">${matches.length} resultado${matches.length > 1 ? 's' : ''}</div>`;
-        matches.forEach(p => body.appendChild(resultRow(p)));
-    }
+        searchCount.textContent = `${results.length} resultado${results.length > 1 ? 's' : ''}`;
 
-    function resultRow(p) {
-        const row = document.createElement('div');
-        row.className = 'search-result-item';
-        row.innerHTML = `
-            <div class="search-result-thumb">
-                <svg viewBox="0 0 120 80" fill="none">
-                    <rect x="10" y="10" width="100" height="60" rx="10" fill="${p.color}" />
-                    <circle cx="60" cy="40" r="22" fill="${p.dark}" />
-                    <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
-                </svg>
-            </div>
-            <div class="search-result-info">
-                <h4>${p.name}</h4>
-                <span>${p.category}</span>
-            </div>
-            <div class="search-result-price">${formatPrice(p.price)}</div>
-        `;
-        row.addEventListener('click', () => {
-            window.location.href = `${dashboardPath()}?destaque=${p.id}#products`;
+        results.forEach((product, index) => {
+            const item = document.createElement('div');
+            item.className = 'search-result-item';
+            if (index === 0) item.classList.add('highlight');
+            
+            item.innerHTML = `
+                <div class="search-result-thumb">
+                    <img src="${product.image}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;" />
+                </div>
+                <div class="search-result-info">
+                    <h4>${highlightMatch(product.name, searchInput.value)}</h4>
+                    <span class="search-result-category">${product.category}</span>
+                </div>
+                <span class="search-result-price">${formatPrice(product.price)}</span>
+            `;
+
+            item.addEventListener('click', function() {
+                const card = document.querySelector(`.product-card[data-id="${product.id}"]`);
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.style.boxShadow = '0 0 0 3px #000';
+                    setTimeout(() => { card.style.boxShadow = ''; }, 2000);
+                }
+                closeSearch();
+            });
+
+            searchResultsList.appendChild(item);
         });
-        return row;
+
+        const firstItem = searchResultsList.querySelector('.search-result-item');
+        if (firstItem) firstItem.classList.add('highlight');
     }
 
     function openSearch() {
-        const overlay = document.getElementById('searchOverlay') || buildOverlay();
-        overlay.classList.add('open');
+        searchResults.classList.add('active');
+        searchOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
-        renderResults('');
-        setTimeout(() => document.getElementById('searchInput').focus(), 150);
-
-        if (typeof gsap !== 'undefined') {
-            gsap.fromTo('.search-panel', { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' });
-        }
     }
 
     function closeSearch() {
-        const overlay = document.getElementById('searchOverlay');
-        if (!overlay) return;
-        overlay.classList.remove('open');
+        searchResults.classList.remove('active');
+        searchOverlay.classList.remove('active');
         document.body.style.overflow = '';
+        searchInput.blur();
+        selectedIndex = -1;
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        buildOverlay();
+    // ============================================
+    // EVENTOS
+    // ============================================
+    let searchTimeout;
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        const query = this.value;
+        searchTimeout = setTimeout(() => {
+            if (query.trim() === '') { closeSearch(); return; }
+            const results = searchProducts(query);
+            renderResults(results);
+            openSearch();
+        }, 250);
+    });
 
-        document.querySelectorAll('.icon-btn[aria-label="Buscar"]').forEach(btn => {
-            btn.addEventListener('click', openSearch);
-        });
+    searchClose.addEventListener('click', closeSearch);
+    searchOverlay.addEventListener('click', closeSearch);
 
-        document.body.addEventListener('click', (e) => {
-            if (e.target.id === 'searchClose' || e.target.closest('#searchClose')) closeSearch();
-            if (e.target.id === 'searchOverlay') closeSearch();
-        });
-
-        document.body.addEventListener('input', (e) => {
-            if (e.target.id === 'searchInput') renderResults(e.target.value);
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeSearch();
-            if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) {
-                e.preventDefault();
-                openSearch();
-            }
-        });
-
-        // Destaca o produto vindo da busca (?destaque=ID)
-        const params = new URLSearchParams(window.location.search);
-        const highlightId = params.get('destaque');
-        if (highlightId) {
-            const card = document.querySelector(`.product-card[data-id="${highlightId}"]`);
-            if (card) {
-                setTimeout(() => {
-                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    card.classList.add('is-highlighted');
-                    if (typeof gsap !== 'undefined') {
-                        gsap.fromTo(card, { boxShadow: '0 0 0 0px rgba(255,59,48,0.5)' }, {
-                            boxShadow: '0 0 0 4px rgba(255,59,48,0.35)',
-                            duration: 0.6,
-                            yoyo: true,
-                            repeat: 3,
-                            ease: 'power1.inOut'
-                        });
-                    }
-                }, 500);
-            }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeSearch();
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            searchInput.focus();
+            searchInput.select();
         }
     });
+
+    // ============================================
+    // NAVEGAÇÃO POR TECLADO
+    // ============================================
+    let selectedIndex = -1;
+
+    document.addEventListener('keydown', function(e) {
+        if (!searchResults.classList.contains('active')) return;
+        const items = searchResultsList.querySelectorAll('.search-result-item');
+        if (items.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+            updateHighlight(items);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedIndex = Math.max(selectedIndex - 1, 0);
+            updateHighlight(items);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            const selected = searchResultsList.querySelector('.search-result-item.highlight');
+            if (selected) selected.click();
+        }
+    });
+
+    function updateHighlight(items) {
+        items.forEach((item, i) => item.classList.toggle('highlight', i === selectedIndex));
+        const selected = searchResultsList.querySelector('.search-result-item.highlight');
+        if (selected) selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+
+    console.log('✅ UrbanShop - Busca carregada!');
+
 })();

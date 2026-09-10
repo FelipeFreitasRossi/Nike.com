@@ -11,19 +11,33 @@
     // ============================================
     // HEADER SCROLL EFFECT
     // ============================================
-    const topBar = document.getElementById('topBar');
-    if (topBar) {
+    const headerPremium = document.getElementById('headerPremium');
+    if (headerPremium) {
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 20) {
-                topBar.classList.add('scrolled');
+                headerPremium.classList.add('scrolled');
             } else {
-                topBar.classList.remove('scrolled');
+                headerPremium.classList.remove('scrolled');
             }
         });
     }
 
     // ============================================
-    // MENU HAMBÚRGUER MELHORADO
+    // BARRA DE PESQUISA SCROLL EFFECT
+    // ============================================
+    const searchBar = document.getElementById('searchBar');
+    if (searchBar) {
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 20) {
+                searchBar.classList.add('scrolled');
+            } else {
+                searchBar.classList.remove('scrolled');
+            }
+        });
+    }
+
+    // ============================================
+    // MENU HAMBÚRGUER
     // ============================================
     const burger = document.getElementById('burger');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -39,8 +53,7 @@
             }
         });
 
-        // Fechar menu ao clicar em um link
-        mobileMenu.querySelectorAll('.mobile-nav-link').forEach((link) => {
+        mobileMenu.querySelectorAll('.mobile-nav-premium-link').forEach((link) => {
             link.addEventListener('click', () => {
                 burger.checked = false;
                 mobileMenu.classList.remove('open');
@@ -48,10 +61,9 @@
             });
         });
 
-        // Fechar menu ao clicar fora (opcional)
         document.addEventListener('click', (e) => {
             const target = e.target;
-            if (!target.closest('.top-bar') && !target.closest('.mobile-menu')) {
+            if (!target.closest('.header-premium') && !target.closest('.mobile-menu-premium')) {
                 if (burger.checked) {
                     burger.checked = false;
                     mobileMenu.classList.remove('open');
@@ -289,32 +301,5 @@
 
         console.log('✅ UrbanShop - GSAP animações carregadas!');
     }
-
-    // ============================================
-// BARRA DE PESQUISA - SCROLL EFFECT
-// ============================================
-const searchBar = document.getElementById('searchBar');
-if (searchBar) {
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 20) {
-            searchBar.classList.add('scrolled');
-        } else {
-            searchBar.classList.remove('scrolled');
-        }
-    });
-}
-
-// ============================================
-// SHORTCUT: CTRL + K ou CMD + K (foco na pesquisa)
-// ============================================
-document.addEventListener('keydown', function(e) {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        const searchInput = document.querySelector('.cir-search__field');
-        if (searchInput) {
-            searchInput.focus();
-        }
-    }
-});
 
 })();

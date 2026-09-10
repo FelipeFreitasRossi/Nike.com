@@ -4,7 +4,7 @@
     // ============================================
     // CONFIGURAÇÃO
     // ============================================
-    const CART_KEY = 'nike_cart';
+    const CART_KEY = 'urban_cart';
     let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
 
     // ============================================
@@ -106,11 +106,7 @@
             html += `
                 <div class="cart-item-card" data-index="${index}">
                     <div class="cart-item-card-image">
-                        <svg viewBox="0 0 120 80" fill="none">
-                            <rect x="10" y="10" width="100" height="60" rx="10" fill="${item.color || '#e8e8e8'}" />
-                            <circle cx="60" cy="40" r="22" fill="${item.darkColor || '#0a0a0a'}" />
-                            <path d="M45 40 L70 28 L80 38 L60 52 L45 40Z" fill="#fff" />
-                        </svg>
+                        <img src="${item.image || ''}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />
                     </div>
                     <div class="cart-item-card-info">
                         <h3>${item.name}</h3>
@@ -208,42 +204,197 @@
         if (summaryTotal) summaryTotal.textContent = formatPrice(total);
     }
 
-    // ============================================
-    // CHECKOUT
-    // ============================================
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', function() {
-            if (cart.length === 0) {
-                showToast('Seu carrinho está vazio!', 'fa-exclamation-circle');
-                return;
-            }
+// ============================================
+// CHECKOUT (WhatsApp)
+// ============================================
+if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', function() {
+        if (cart.length === 0) {
+            showToast('Seu carrinho está vazio!', 'fa-exclamation-circle');
+            return;
+        }
 
-            const total = getTotal();
-            showToast(`Pedido finalizado! Total: ${formatPrice(total)}`, 'fa-check-circle');
+        // ============================================
+        // CONFIGURAÇÃO DO WHATSAPP
+        // ============================================
+        const WHATSAPP_NUMBER = '5516996419475';
 
-            if (typeof gsap !== 'undefined') {
-                gsap.from(this, {
-                    scale: 0.9,
-                    duration: 0.3,
-                    ease: 'back.out(2)',
-                    onComplete: () => {
-                        cart = [];
-                        saveCart();
-                        renderCartItems();
-                        updateBadge();
-                    }
-                });
-            } else {
-                cart = [];
-                saveCart();
-                renderCartItems();
-                updateBadge();
-            }
+        // ============================================
+        // DATA E HORA DO PEDIDO
+        // ============================================
+        const agora = new Date();
+        const dataHora = agora.toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        // ============================================
+        // ID ÚNICO DO PEDIDO
+        // ============================================
+        const pedidoId = 'US-' + Date.now().toString().slice(-6);
+
+        // ============================================
+        // MONTAR LISTA DE PRODUTOS
+        // ============================================
+        let listaProdutos = '';
+        let total = 0;
+        let totalItens = 0;
+
+        cart.forEach((item, index) => {
+            const subtotal = item.price * item.qty;
+            total += subtotal;
+            totalItens += item.qty;
+            
+            listaProdutos += `\n┌─────────────────────────┐\n`;
+            listaProdutos += `│ ${index + 1}. *${item.name}*\n`;
+            if (item.size) listaProdutos += `│ 📏 Tamanho: ${item.size}\n`;
+            listaProdutos += `│ 🏷️ Categoria: ${item.category || 'Tênis'}\n`;
+            listaProdutos += `│ 🛒 Quantidade: ${item.qty}\n`;
+            listaProdutos += `│ 💵 Unitário: ${formatPrice(item.price)}\n`;
+            listaProdutos += `│ 💰 Subtotal: *${formatPrice(subtotal)}*\n`;
+            listaProdutos += `└─────────────────────────┘\n`;
+        });
+
+        // ============================================
+        // MENSAGEM PROFISSIONAL
+        // ============================================
+        const mensagem = 
+`╔══════════════════════════╗
+   🛍️  *URBANSHOP*  🛍️
+╚══════════════════════════╝
+
+✨ *NOVO PEDIDO RECEBIDO* ✨
+
+📋 *Pedido:* #${pedidoId}
+📅 *Data:* ${dataHora}
+
+━━━━━━━━━━━━━━━━━━━━━━
+📦 *ITENS DO PEDIDO (${totalItens})*
+━━━━━━━━━━━━━━━━━━━━━━
+${listaProdutos}
+━━━━━━━━━━━━━━━━━━━━━━
+💰 *RESUMO FINANCEIRO*
+━━━━━━━━━━━━━━━━━━━━━━
+
+📊 Itens: ${totalItens} produto${totalItens > 1 ? 's' : ''}
+🚚 Frete: *A combinar*
+💵 Total: *${formatPrice(total)}*
+
+━━━━━━━━━━━━━━━━━━━━━━
+
+💬 *Olá! Gostaria de finalizar meu pedido.*
+
+📦 Por favor, me informe:
+   • Formas de pagamento disponíveis
+   • Prazo de entrega para minha região
+   • Valor do frete (se houver)
+
+🙏 Fico no aguardo do retorno!`;
+
+        // ============================================
+        // ABRIR WHATSAPP
+        // ============================================
+        const mensagemCodificada = encodeURIComponent(mensagem);
+        const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensagemCodificada}`;
+
+        // Animação no botão
+        if (typeof gsap !== 'undefined') {
+            gsap.from(this, {
+                scale: 0.95,
+                duration: 0.3,
+                ease: 'back.out(2)'
+            });
+        }
+
+        setTimeout(() => {
+            window.open(whatsappURL, '_blank');
+            showToast('Redirecionando para o WhatsApp...', 'fa-whatsapp');
+        }, 200);
+
+        // ============================================
+        // LIMPAR CARRINHO (após 3s)
+        // ============================================
+        setTimeout(() => {
+            cart = [];
+            saveCart();
+            renderCartItems();
+            updateBadge();
+        }, 3000);
+    });
+}
+
+    // ============================================
+    // POP-UP
+    // ============================================
+    const popupOverlay = document.getElementById('popupOverlay');
+    const popupClose = document.getElementById('popupClose');
+    const popupContinue = document.getElementById('popupContinue');
+    const popupProductImage = document.getElementById('popupProductImage');
+    const popupProductName = document.getElementById('popupProductName');
+    const popupProductPrice = document.getElementById('popupProductPrice');
+
+    function openPopup(product) {
+        if (!popupOverlay) return;
+
+        if (popupProductImage) {
+            popupProductImage.src = product.image || '';
+            popupProductImage.alt = product.name || '';
+        }
+        if (popupProductName) popupProductName.textContent = product.name || 'Produto';
+        if (popupProductPrice) popupProductPrice.textContent = formatPrice(product.price || 0);
+
+        popupOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        if (typeof gsap !== 'undefined') {
+            gsap.fromTo('.popup-icon',
+                { scale: 0, rotate: -180 },
+                { scale: 1, rotate: 0, duration: 0.5, ease: 'back.out(2.5)', delay: 0.1 }
+            );
+            gsap.fromTo('.popup-title',
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.4, delay: 0.2, ease: 'power3.out' }
+            );
+            gsap.fromTo('.popup-message',
+                { opacity: 0, y: 15 },
+                { opacity: 1, y: 0, duration: 0.4, delay: 0.3, ease: 'power3.out' }
+            );
+            gsap.fromTo('.popup-product',
+                { opacity: 0, y: 15 },
+                { opacity: 1, y: 0, duration: 0.4, delay: 0.4, ease: 'power3.out' }
+            );
+            gsap.fromTo('.popup-btn',
+                { opacity: 0, y: 15 },
+                { opacity: 1, y: 0, duration: 0.4, delay: 0.5, stagger: 0.1, ease: 'power3.out' }
+            );
+        }
+    }
+
+    function closePopup() {
+        if (!popupOverlay) return;
+        popupOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (popupClose) popupClose.addEventListener('click', closePopup);
+    if (popupContinue) popupContinue.addEventListener('click', closePopup);
+    if (popupOverlay) {
+        popupOverlay.addEventListener('click', function(e) {
+            if (e.target === popupOverlay) closePopup();
         });
     }
 
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popupOverlay && popupOverlay.classList.contains('active')) {
+            closePopup();
+        }
+    });
+
     // ============================================
-    // ADICIONAR PRODUTOS
+    // ADICIONAR PRODUTOS (COM POP-UP)
     // ============================================
     document.addEventListener('click', function(e) {
         const btn = e.target.closest('.btn-add-cart');
@@ -255,15 +406,23 @@
         const id = parseInt(card.dataset.id);
         const name = card.dataset.name;
         const price = parseFloat(card.dataset.price);
-        const color = card.dataset.color || '#e8e8e8';
-        const darkColor = card.dataset.dark || '#0a0a0a';
         const category = card.querySelector('.product-category')?.textContent || 'Tênis';
+        
+        const imgElement = card.querySelector('.product-img');
+        const image = imgElement ? imgElement.src : '';
 
         const existing = cart.find(item => item.id === id);
         if (existing) {
             existing.qty++;
         } else {
-            cart.push({ id, name, price, qty: 1, color, darkColor, category });
+            cart.push({ 
+                id, 
+                name, 
+                price, 
+                qty: 1, 
+                image,
+                category
+            });
         }
 
         saveCart();
@@ -271,7 +430,7 @@
 
         if (typeof gsap !== 'undefined') {
             gsap.from(card, {
-                boxShadow: '0 0 0 3px #0a0a0a',
+                boxShadow: '0 0 0 3px #000000',
                 duration: 0.4,
                 ease: 'power2.out',
                 onComplete: () => {
@@ -291,7 +450,7 @@
             });
         }
 
-        showToast(`${name} adicionado ao carrinho!`, 'fa-check-circle');
+        openPopup({ name, price, image });
     });
 
     // ============================================
@@ -300,17 +459,6 @@
     renderCartItems();
     updateBadge();
 
-    if (typeof gsap !== 'undefined' && document.getElementById('cartSummary')) {
-        gsap.from('#cartItemsList, #cartSummary', {
-            opacity: 0,
-            y: 30,
-            duration: 0.7,
-            stagger: 0.1,
-            ease: 'power3.out',
-            delay: 0.1
-        });
-    }
-
-    console.log('✅ Carrinho carregado!');
+    console.log('✅ UrbanShop - Carrinho carregado!');
 
 })();
